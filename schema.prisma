@@ -12,4 +12,26 @@ model User {
    email   String   @unique
    phone   String?
    avatar  String?
+   comments Comment[]
+ }
+ model Blog {
+   id      Int      @id @default(autoincrement())
+   title    String
+   description String
+   image  String
+   content String
+   comments Comment[]
+ }
+
+ model Comment {
+   id          Int      @id @default(autoincrement())
+   comment     String
+   id_user     Int
+   id_blog     Int
+   name_user   String
+   avatar_user String
+   level       Int
+  
+   user        User     @relation(fields: [id_user], references: [id])
+   blog        Blog     @relation(fields: [id_blog], references: [id])
  }

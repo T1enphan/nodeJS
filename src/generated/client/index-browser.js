@@ -127,6 +127,24 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar'
 };
 
+exports.Prisma.BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  image: 'image',
+  content: 'content'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  comment: 'comment',
+  id_user: 'id_user',
+  id_blog: 'id_blog',
+  name_user: 'name_user',
+  avatar_user: 'avatar_user',
+  level: 'level'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -139,7 +157,9 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Blog: 'Blog',
+  Comment: 'Comment'
 };
 
 /**

@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 
 // Định nghĩa các tuyến đường API ở đây
-router.post("/create-user",userController.upload, userController.createUser);
+router.post("/create-user", userController.upload, userController.createUser);
 // router.get('/get-data', userController.createUser);
 router.get("/get-data", userController.getUsers);
 router.delete("/delete/:id", userController.deleteUser);

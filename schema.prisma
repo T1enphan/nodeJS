@@ -12,7 +12,7 @@ model User {
    email   String   @unique
    phone   String?
    avatar  String?
-   comments Comment[]
+   comments CommentBlog[]
  }
  model Blog {
    id      Int      @id @default(autoincrement())
@@ -20,10 +20,10 @@ model User {
    description String
    image  String
    content String
-   comments Comment[]
+   comments CommentBlog[]
  }
 
- model Comment {
+ model CommentBlog {
    id          Int      @id @default(autoincrement())
    comment     String
    id_user     Int

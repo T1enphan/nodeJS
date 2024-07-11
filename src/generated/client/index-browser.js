@@ -135,7 +135,7 @@ exports.Prisma.BlogScalarFieldEnum = {
   content: 'content'
 };
 
-exports.Prisma.CommentScalarFieldEnum = {
+exports.Prisma.CommentBlogScalarFieldEnum = {
   id: 'id',
   comment: 'comment',
   id_user: 'id_user',
@@ -159,7 +159,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Blog: 'Blog',
-  Comment: 'Comment'
+  CommentBlog: 'CommentBlog'
 };
 
 /**

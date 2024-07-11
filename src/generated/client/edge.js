@@ -140,7 +140,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\bonpr\\OneDrive\\Máy tính\\nodeJS\\src\\generated\\client",
+      "value": "C:\\Users\\bonpr\\OneDrive\\Máy tính\\backend\\src\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -154,7 +154,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\bonpr\\OneDrive\\Máy tính\\nodeJS\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\bonpr\\OneDrive\\Máy tính\\backend\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

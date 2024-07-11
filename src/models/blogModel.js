@@ -5,6 +5,9 @@ const createBlog = async (data) => {
   return prisma.blog.create({ data });
 };
 
+ 
+
+
 // lấy thông tin cua blog + comment va thông tin user
 const getBlogWithComments = async (blogId) => {
   try {

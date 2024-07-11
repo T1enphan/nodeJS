@@ -22,7 +22,6 @@ const storage = multer.diskStorage({
       null,
       file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
     );
-    console.log("log fieldname: ", file.fieldname);
   },
 });
 // const upload =multer({storage});
@@ -57,24 +56,25 @@ const upload = multer({ storage }).array("avatar", 3);
 const createUser = async (req, res) => {
   const { email, name, phone, avatar } = req.body;
   const data = req.body;
-  const avatarFiles = req.file ? [req.file] : req.files; // Chuyển đổi req.file thành mảng nếu chỉ có một tệp
+  console.log(data);
+  // const avatarFiles = req.file ? [req.file] : req.files; // Chuyển đổi req.file thành mảng nếu chỉ có một tệp
 
-  const errors = validateUser(data, avatarFiles);
-  if (Object.keys(errors).length > 0) {
-    return res.status(400).json(errors);
-  }
+  // const errors = validateUser(data, avatarFiles);
+  // if (Object.keys(errors).length > 0) {
+  //   return res.status(400).json(errors);
+  // }
 
-  const errorEmailExist = await userModel.checkEmail(data.email);
-  if (Object.keys(errorEmailExist).length > 0) {
-    return res.status(400).json(errorEmailExist);
-  }
+  // const errorEmailExist = await userModel.checkEmail(data.email);
+  // if (Object.keys(errorEmailExist).length > 0) {
+  //   return res.status(400).json(errorEmailExist);
+  // }
 
-  // Xử lý upload file (đây là upload nhiều ảnh tùy theo số lượng bạn gán ở trên) ảnh cho user
-  data.avatar = avatarFiles ? avatarFiles.map((file) => file.path) : [];
-  data.avatar = JSON.stringify(data.avatar);
+  // // Xử lý upload file (đây là upload nhiều ảnh tùy theo số lượng bạn gán ở trên) ảnh cho user
+  // data.avatar = avatarFiles ? avatarFiles.map((file) => file.path) : [];
+  // data.avatar = JSON.stringify(data.avatar);
 
-  const user = await userModel.createUser(data);
-  res.json(user);
+  // const user = await userModel.createUser(data);
+  // res.json(user);
 };
 
 // get all dataUser

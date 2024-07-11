@@ -26,18 +26,28 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage }).array("avatar", 3);
 
+// const createTestBlog = async (req, res) => {
+//   const {title, description, content, image} = req.body
+//   const data = req.body;
+//   console.log(data);
+//     // const imgFile = req.file ? [req.file] : req.file;
+//   const errors = validateTest(data);
+//   if (Object.keys(errors).length > 0) {
+//     return res.status(400).json(errors);
+//   }
+//   //   data.image = imgFile ? imgFile.map((file) => file.path) : [];
+//   //   data.image = JSON.stringify(data.image);
+//   const testBlog = await testModel.createTestBlog(data);
+//   res.json(testBlog);
+// };
+
 const createTestBlog = async (req, res) => {
   const data = req.body;
-  //   const imgFile = req.file ? [req.file] : req.file;
-  const errors = validateTest(data);
-  if (Object.keys(errors).length > 0) {
-    return res.status(400).json(errors);
-  }
-  //   data.image = imgFile ? imgFile.map((file) => file.path) : [];
-  //   data.image = JSON.stringify(data.image);
-  const testBlog = await testModel.createTestBlog(data);
-  res.json(testBlog);
-};
+  const blog = await testModel.createTestBlog(data);
+  console.log(blog);
+  res.json(blog);
+ };
+ 
 module.exports = {
   createTestBlog,
   upload,

@@ -12,8 +12,7 @@ router.delete("/delete/:id", userController.deleteUser);
 router.put("/update/:id", userController.updateUsers);
 router.get("/find-user/:id", userController.findUserByID);
 
-// router.post("/create-blog", blogController.upload, blogController.createBlog);
-router.post("/create-test", testController.createTestBlog);
+router.post("/create-blog", blogController.createBlog);
 router.post("/create-comment", commentController.creatComment);
 
 router.get("/example", (req, res) => {

@@ -1125,6 +1125,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     avatar: string | null
+    password: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1133,6 +1134,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     avatar: string | null
+    password: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1141,6 +1143,7 @@ export namespace Prisma {
     email: number
     phone: number
     avatar: number
+    password: number
     _all: number
   }
 
@@ -1159,6 +1162,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
+    password?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1167,6 +1171,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
+    password?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1175,6 +1180,7 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
+    password?: true
     _all?: true
   }
 
@@ -1270,6 +1276,7 @@ export namespace Prisma {
     email: string
     phone: string | null
     avatar: string | null
+    password: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1297,6 +1304,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
+    password?: boolean
     comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1308,6 +1316,7 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
+    password?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1326,6 +1335,7 @@ export namespace Prisma {
       email: string
       phone: string | null
       avatar: string | null
+      password: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1701,6 +1711,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
   }
     
 
@@ -3939,7 +3950,8 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     phone: 'phone',
-    avatar: 'avatar'
+    avatar: 'avatar',
+    password: 'password'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4023,6 +4035,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     comments?: CommentBlogListRelationFilter
   }
 
@@ -4032,6 +4045,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     comments?: CommentBlogOrderByRelationAggregateInput
   }
 
@@ -4044,6 +4058,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
     comments?: CommentBlogListRelationFilter
   }, "id" | "email">
 
@@ -4053,6 +4068,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -4069,6 +4085,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type BlogWhereInput = {
@@ -4203,6 +4220,7 @@ export namespace Prisma {
     email: string
     phone?: string | null
     avatar?: string | null
+    password?: string | null
     comments?: CommentBlogCreateNestedManyWithoutUserInput
   }
 
@@ -4212,6 +4230,7 @@ export namespace Prisma {
     email: string
     phone?: string | null
     avatar?: string | null
+    password?: string | null
     comments?: CommentBlogUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -4220,6 +4239,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentBlogUpdateManyWithoutUserNestedInput
   }
 
@@ -4229,6 +4249,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: CommentBlogUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -4238,6 +4259,7 @@ export namespace Prisma {
     email: string
     phone?: string | null
     avatar?: string | null
+    password?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -4245,6 +4267,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -4253,6 +4276,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogCreateInput = {
@@ -4437,6 +4461,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
+    password?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -4449,6 +4474,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
+    password?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -4457,6 +4483,7 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
+    password?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -4942,6 +4969,7 @@ export namespace Prisma {
     email: string
     phone?: string | null
     avatar?: string | null
+    password?: string | null
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -4950,6 +4978,7 @@ export namespace Prisma {
     email: string
     phone?: string | null
     avatar?: string | null
+    password?: string | null
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -4993,6 +5022,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -5001,6 +5031,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BlogUpsertWithoutCommentsInput = {

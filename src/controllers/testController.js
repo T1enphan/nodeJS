@@ -1,54 +1,15 @@
 const testModel = require("../models/testModel");
-// const { validateBlog } = require("../validation/blogValidation");
 const { validateTest } = require("../validation/testValidation");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { uploadSingle, uploadArray } = require("../Middleware/uploadMiddleware");
 
-const uploadDir = path.join(__dirname, "../public/uploads/blog");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+
+const createTestBlog = (req, res) =>{
+  uploadSingle(req,res,async(err)=>{
+    const data =req.body;
+    console.log(data);
+  })
 }
-
-// xử lý hình ảnh bằng multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir); //thư mục lưu trữ hình ảnh của user
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(
-      null,
-      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-    );
-    console.log("log fieldname: ", file.fieldname);
-  },
-});
-const upload = multer({ storage }).array("avatar", 3);
-
-// const createTestBlog = async (req, res) => {
-//   const {title, description, content, image} = req.body
-//   const data = req.body;
-//   console.log(data);
-//     // const imgFile = req.file ? [req.file] : req.file;
-//   const errors = validateTest(data);
-//   if (Object.keys(errors).length > 0) {
-//     return res.status(400).json(errors);
-//   }
-//   //   data.image = imgFile ? imgFile.map((file) => file.path) : [];
-//   //   data.image = JSON.stringify(data.image);
-//   const testBlog = await testModel.createTestBlog(data);
-//   res.json(testBlog);
-// };
-
-const createTestBlog = async (req, res) => {
-  const data = req.body;
-  const blog = await testModel.createTestBlog(data);
-  console.log(blog);
-  res.json(blog);
- };
  
 module.exports = {
   createTestBlog,
-  upload,
 };

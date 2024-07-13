@@ -9,19 +9,27 @@ const validateBlog = (data, file) => {
   if (!data.content) {
     errors.content = "vui lòng nhập content";
   }
-  if (!file) {
-    errors.image = "vui lòng thêm img";
+  if (!file || (Array.isArray(file) && file.length === 0)) {
+    errors.avatar = "Vui lòng upload avatar";
   } else {
-    const allowedFormats = ["image/jpeg", "image/png", "image/gif"];
-    if (!allowedFormats.includes(file.mimetype)) {
-      errors.image = "định dạng không hợp lệ";
-    }
-    const maxSize = 1024 * 1024;
-    if (file.size > maxSize) {
-      errors.image =
-        "Dung lượng file quá lớn. Vui lòng chọn file có dung lượng nhỏ hơn 1MB";
-    }
+    const files = Array.isArray(file) ? file : [file];
+    files.forEach((value) => {
+      // Kiểm tra định dạng của file avatar
+      const allowedFormats = ["image/jpeg", "image/png", "image/gif"];
+      if (!allowedFormats.includes(value.mimetype)) {
+        errors.avatar =
+          "Định dạng file không hợp lệ. Chỉ chấp nhận JPEG, PNG hoặc GIF";
+      }
+
+      // Kiểm tra dung lượng của file avatar (giả sử giới hạn là 1MB)
+      const maxSize = 1024 * 1024; // 1MB
+      if (value.size > maxSize) {
+        errors.avatar =
+          "Dung lượng file quá lớn. Vui lòng chọn file có dung lượng nhỏ hơn 1MB";
+      }
+    });
   }
+  // Kiểm tra các trường khác và thêm các lỗi nếu cần
   return errors;
 };
 module.exports = {

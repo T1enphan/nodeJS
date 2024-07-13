@@ -12,6 +12,7 @@ model User {
    email   String   @unique
    phone   String?
    avatar  String?
+   password String?
    comments CommentBlog[]
  }
  model Blog {

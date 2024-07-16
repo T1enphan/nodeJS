@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel");
 const { validateUser } = require("../validation/userValidation");
 const { uploadSingle, uploadArray } = require("../Middleware/uploadMiddleware");
-
+const bcrypt = require("bcryptjs");
 // đây là hàm tạo người dùng upload 1 array ảnh
 const createUser = async (req, res) => {
   uploadArray(req, res, async (err) => {
@@ -26,7 +26,8 @@ const createUser = async (req, res) => {
     // Xử lý upload file (đây là upload nhiều ảnh tùy theo số lượng bạn gán ở trên) ảnh cho user
     data.avatar = avatarFiles ? avatarFiles.map((file) => file.path) : [];
     data.avatar = JSON.stringify(data.avatar);
-
+    // xử lý mã hóa password
+    data.password = await bcrypt.hash(data.password, 10);
     const user = await userModel.createUser(data);
     res.json(user);
   });

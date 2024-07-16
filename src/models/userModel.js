@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs/dist/bcrypt");
 const { PrismaClient } = require("../generated/client");
 const prisma = new PrismaClient();
 
@@ -22,19 +23,40 @@ const updateUser = async (id, data) => {
   return prisma.user.update({ where: { id }, data });
 };
 
-const checkEmail = async(email) =>{
+const checkEmail = async (email) => {
   const existEmail = await prisma.user.findFirst({
-    where:{
-      email:email,
+    where: {
+      email: email,
     },
   });
   const errors = {};
-  if(existEmail){
-    errors.email = 'email đã tồn tại';
+  if (existEmail) {
+    errors.email = "email đã tồn tại";
   }
-  return errors
-}
+  return errors;
+};
 
+const checkLoginUser = async (data) => {
+  //ktr email đã tồn tại hay chưa
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      AND: [{ email: data.email }],
+    },
+  });
+  if (!existingUser) {
+    return false;
+  }
+  const passwordMatch = await bcrypt.compare(
+    data.password,
+    existingUser.password
+  );
+  if (passwordMatch) {
+    if (!passwordMatch) {
+      return false;
+    }
+    return existingUser;
+  }
+};
 
 module.exports = {
   createUser,
@@ -42,5 +64,6 @@ module.exports = {
   deleteUser,
   getUserByID,
   updateUser,
-  checkEmail
+  checkEmail,
+  checkLoginUser,
 };

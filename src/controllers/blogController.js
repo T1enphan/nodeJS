@@ -33,9 +33,13 @@ const getBlogWithComments = async (req, res) => {
   }
 }
 
-
+const getAllBlog = async (req, res) => {
+  const blogs = await blogModel.getBlog();
+  res.json(blogs);
+};
 
 module.exports = {
   createBlog,
-  getBlogWithComments
+  getBlogWithComments,
+  getAllBlog
 }

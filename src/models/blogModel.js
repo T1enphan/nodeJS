@@ -5,7 +5,9 @@ const createBlog = async (data) => {
   return prisma.blog.create({ data });
 };
 
- 
+const getBlog = async () => {
+  return prisma.blog.findMany();
+};
 
 
 // lấy thông tin cua blog + comment va thông tin user
@@ -32,5 +34,6 @@ const getBlogWithComments = async (blogId) => {
 
 module.exports = {
   createBlog,
+  getBlog,
   getBlogWithComments,
 };

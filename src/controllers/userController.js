@@ -2,6 +2,23 @@ const userModel = require("../models/userModel");
 const { validateUser } = require("../validation/userValidation");
 const { uploadSingle, uploadArray } = require("../Middleware/uploadMiddleware");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken')
+
+function createJWT(userId, username) {
+  const token = jwt.sign({ userId, username }, 'neit', { expiresIn: '5h' });
+  return token;
+ }
+ 
+ const loginUser = async (req, res) => {
+  const data = req.body;
+   const checkLogin = await userModel.checkLoginUser(data);
+   if(!checkLogin){
+    return res.status(400).json({ message: 'Sai mật khẩu hoặc tài khoản'});
+  } 
+  const token = createJWT(checkLogin.id, checkLogin.username);
+  res.json({ message: 'Đăng nhập thành công', token: token, user: checkLogin })
+}
+
 // đây là hàm tạo người dùng upload 1 array ảnh
 const createUser = async (req, res) => {
   uploadArray(req, res, async (err) => {
@@ -76,4 +93,6 @@ module.exports = {
   deleteUser,
   updateUsers,
   findUserByID,
+  createJWT,
+  loginUser
 };

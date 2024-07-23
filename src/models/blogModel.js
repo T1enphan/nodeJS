@@ -9,6 +9,9 @@ const getBlog = async () => {
   return prisma.blog.findMany();
 };
 
+const deleteBlog = async (id) => {
+  return prisma.blog.delete({ where: { id } });
+};
 
 // lấy thông tin cua blog + comment va thông tin user
 const getBlogWithComments = async (blogId) => {
@@ -36,4 +39,5 @@ module.exports = {
   createBlog,
   getBlog,
   getBlogWithComments,
+  deleteBlog,
 };

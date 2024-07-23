@@ -146,6 +146,11 @@ exports.Prisma.CommentBlogScalarFieldEnum = {
   level: 'level'
 };
 
+exports.Prisma.CountryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -160,7 +165,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Blog: 'Blog',
-  CommentBlog: 'CommentBlog'
+  CommentBlog: 'CommentBlog',
+  Country: 'Country'
 };
 
 /**

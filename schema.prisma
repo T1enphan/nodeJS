@@ -36,3 +36,8 @@ model User {
    user        User     @relation(fields: [id_user], references: [id])
    blog        Blog     @relation(fields: [id_blog], references: [id])
  }
+
+model Country {
+  id Int @id @default(autoincrement())
+  name String
+}

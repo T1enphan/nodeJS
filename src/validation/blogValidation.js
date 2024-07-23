@@ -29,6 +29,7 @@ const validateBlog = (data, file) => {
       }
     });
   }
+
   // Kiểm tra các trường khác và thêm các lỗi nếu cần
   return errors;
 };

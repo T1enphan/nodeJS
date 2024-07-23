@@ -1,12 +1,11 @@
 const blogModel = require("../models/blogModel");
 const { validateBlog } = require("../validation/blogValidation");
-const {uploadArray, uploadSingle} = require("../Middleware/uploadMiddleware")
-
+const { uploadArray, uploadSingle } = require("../Middleware/uploadMiddleware");
 
 const createBlog = async (req, res) => {
   uploadArray(req, res, async (err) => {
-    if(err) {
-      return res.status(400).json({error : err.message});
+    if (err) {
+      return res.status(400).json({ error: err.message });
     }
     const data = req.body;
     const imageFiles = req.files;
@@ -20,18 +19,23 @@ const createBlog = async (req, res) => {
 
     const blog = await blogModel.createBlog(data);
     res.json(blog);
-  })
+  });
 };
 
+const deleteBlog = async (req, res) => {
+  const id = parseInt(req.params.id);
+  await blogModel.deleteBlog(id);
+  res.json({ message: "Blog deleted" });
+};
 const getBlogWithComments = async (req, res) => {
   const id = parseInt(req.params.id);
   const blog = await blogModel.getBlogWithComments(id);
   if (blog) {
     res.json(blog);
   } else {
-    res.status(404).json({ error: 'blog not found' });
+    res.status(404).json({ error: "blog not found" });
   }
-}
+};
 
 const getAllBlog = async (req, res) => {
   const blogs = await blogModel.getBlog();
@@ -41,5 +45,6 @@ const getAllBlog = async (req, res) => {
 module.exports = {
   createBlog,
   getBlogWithComments,
-  getAllBlog
-}
+  getAllBlog,
+  deleteBlog,
+};

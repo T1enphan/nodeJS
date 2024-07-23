@@ -23,6 +23,10 @@ const countryController = require("../controllers/coutryController");
 //     return res.status(401).json({ error: 'Unauthorized2' });
 //   }
 // }
+// USER LOGIN
+router.post("/login", userController.loginUser);
+
+
 
 //USER API
 router.post("/create-user", userController.createUser);

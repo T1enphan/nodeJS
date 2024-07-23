@@ -5,7 +5,7 @@ const createCountry = async (req, res) => {
   const country = await countryModel.createCountry(data);
   res.json(country);
 };
-
+  
 const getDataCountry = async (req, res) => {
   const country = await countryModel.getCountry();
   res.json(country);

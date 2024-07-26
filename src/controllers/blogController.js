@@ -44,8 +44,9 @@ const createBlog = async (req, res) => {
     }
 
     if (imageFile) {
+      // `http://localhost:3003${blog.image}`;
       // Lưu đường dẫn tương đối của ảnh
-      data.image = `http://localhost:3003/Users/bonpr/OneDrive/Máy tính/nodeJS/src/public/uploads/blog/${imageFile.filename}`;
+      data.image = `/uploads/blog/${imageFile.filename}`;
     } else {
       data.image = null;
     }

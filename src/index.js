@@ -3,8 +3,8 @@ const app = express();
 const { PrismaClient } = require("./generated/client");
 const prisma = new PrismaClient();
 const cors = require("cors");
-
-
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
 // cho phép nhận data từ server khác
 app.use(cors());
 //   Xử lý JSON data

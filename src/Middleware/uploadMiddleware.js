@@ -1,10 +1,11 @@
-// middlewares/uploadMiddleware.js
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
 // Đảm bảo thư mục tồn tại
-const uploadDir = path.join(__dirname, "../public/uploads/blog");
+const uploadDir = path.normalize(
+  path.join(__dirname, "../public/uploads/blog")
+);
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -24,14 +25,15 @@ const storage = multer.diskStorage({
 });
 
 // Định nghĩa các cấu hình khác nhau tùy vào nhu cầu
-const uploadSingle = multer({ storage }).single("avatar");
-const uploadArray = multer({ storage }).array("avatar", 3);
-// const uploadSingleUser = multer({ storage }).single("avatar");
-// const uploadArrayUSer = multer({ storage }).array("avatar", 3);
+const uploadSingle = multer({ storage }).single("image");
+const uploadArray = multer({ storage }).array("image", 3);
+const uploadSingleUser = multer({ storage }).single("avatar");
+const uploadArrayUser = multer({ storage }).array("avatar", 3);
+
 // avatar đây là trường trong bảng user nếu dùng cho bảng khác nên đổi trường lại
 module.exports = {
   uploadSingle,
   uploadArray,
-  // uploadSingleUser,
-  // uploadArrayUSer,
+  uploadSingleUser,
+  uploadArrayUser,
 };

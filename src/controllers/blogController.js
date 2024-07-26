@@ -1,24 +1,62 @@
 const blogModel = require("../models/blogModel");
 const { validateBlog } = require("../validation/blogValidation");
-const { uploadArray, uploadSingle } = require("../Middleware/uploadMiddleware");
+const {
+  uploadSingle,
+  uploadArray,
+  uploadSingleUser,
+  uploadArrayUser,
+} = require("../Middleware/uploadMiddleware");
+
+// const createBlog = async (req, res) => {
+//   uploadSingle(req, res, async (err) => {
+//     if (err) {
+//       return res.status(400).json({ error: err.message });
+//     }
+//     const { title, description, content, image } = req.body;
+//     const data = req.body;
+//     const imageFiles = req.file;
+
+//     const errors = validateBlog(data, imageFiles);
+//     if (Object.keys(errors).length > 0) {
+//       return res.status(400).json(errors);
+//     }
+//     data.image = imageFiles ? imageFiles.path : null;
+//     // data.image = imageFiles ? imageFiles.map((file) => file.path) : [];
+//     data.image = JSON.stringify(data.image);
+
+//     const blog = await blogModel.createBlog(data);
+//     res.json(blog);
+//   });
+// };
 
 const createBlog = async (req, res) => {
-  uploadArray(req, res, async (err) => {
+  uploadSingle(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
+    const { title, description, content } = req.body;
     const data = req.body;
-    const imageFiles = req.files;
+    const imageFile = req.file;
 
-    const errors = validateBlog(data, imageFiles);
+    const errors = validateBlog(data, imageFile);
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
     }
-    data.image = imageFiles ? imageFiles.map((file) => file.path) : [];
-    data.image = JSON.stringify(data.image);
 
-    const blog = await blogModel.createBlog(data);
-    res.json(blog);
+    if (imageFile) {
+      // Lưu đường dẫn tương đối của ảnh
+      data.image = `http://localhost:3003/Users/bonpr/OneDrive/Máy tính/nodeJS/src/public/uploads/blog/${imageFile.filename}`;
+    } else {
+      data.image = null;
+    }
+
+    try {
+      const blog = await blogModel.createBlog(data);
+      res.json(blog);
+    } catch (error) {
+      console.error("Error creating blog:", error);
+      res.status(500).json({ message: "Có lỗi xảy ra khi thêm bài viết" });
+    }
   });
 };
 

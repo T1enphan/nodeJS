@@ -45,6 +45,10 @@ router.post("/country/create", countryController.createCountry);
 router.get("/country/get-data", countryController.getDataCountry);
 router.delete("/country/delete/:id", countryController.deleteCountry);
 router.put("/country/update/:id", countryController.updateCountry);
+// PRODUCT API
+
+
+
 
 ///Example
 router.get("/example", (req, res) => {

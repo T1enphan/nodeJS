@@ -46,7 +46,7 @@ const createBlog = async (req, res) => {
     if (imageFile) {
       // `http://localhost:3003${blog.image}`;
       // Lưu đường dẫn tương đối của ảnh
-      data.image = `/uploads/blog/${imageFile.filename}`;
+      data.image = `/uploads/${imageFile.filename}`;
     } else {
       data.image = null;
     }

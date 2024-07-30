@@ -97,22 +97,39 @@ const getUsers = async (req, res) => {
 
 // update user by id
 const updateUsers = async (req, res) => {
-  uploadSingle(req, res, async (err) => {
+  uploadSingleUser(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
+
     const id = parseInt(req.params.id);
-    const { name, email, phone, avatar } = req.body;
-    data = req.body;
+    const { name, email, phone } = req.body;
     const avatarFile = req.file;
-    const errors = validateUser({ name, email, phone, avatar }, avatarFile);
+
+    // Validate input
+    const errors = validateUser({ name, email, phone }, avatarFile);
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
     }
-    data.avatar = avatarFile ? avatarFile.path : null;
-    const user = await userModel.updateUser(id, { name, email, phone, avatar });
-    // console.log(user);
-    res.json(user);
+
+    // Update avatar path
+    let avatarPath = null;
+    if (avatarFile) {
+      avatarPath = `/uploads/${avatarFile.filename}`;
+    }
+
+    try {
+      const user = await userModel.updateUser(id, {
+        name,
+        email,
+        phone,
+        avatar: avatarPath, // Ensure avatar is a single path string
+      });
+      res.json(user);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Có lỗi xảy ra khi update user" });
+    }
   });
 };
 

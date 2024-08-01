@@ -50,7 +50,9 @@ router.delete("/country/delete/:id", countryController.deleteCountry);
 router.put("/country/update/:id", countryController.updateCountry);
 // PRODUCT API
 router.post("/product/create", productController.createProduct);
-
+router.get("/product/get-data", productController.getDataProduct);
+router.delete("/product/delete/:id", productController.deleteProduct);
+router.put("/product/update/:id", productController.updateProduct);
 // BRAND API
 router.post("/brand/create", brandController.creatBrand);
 router.get("/brand/get-data", brandController.getDataBrand);
@@ -58,6 +60,9 @@ router.put("/brand/update/:id", brandController.updateBrand);
 router.delete("/brand/delete/:id", brandController.deleteBrand);
 // CATEGORY API
 router.post("/category/create", categoryController.createCategory);
+router.get("/category/get-data", categoryController.getDataCategory);
+router.delete("/category/delete/:id", categoryController.deleteCategory);
+router.put("/category/update/:id", categoryController.updateCategory);
 ///Example
 router.get("/example", (req, res) => {
   res.send(

@@ -21,7 +21,9 @@ const loginUser = async (req, res) => {
     return res.status(400).json({ message: "Sai mật khẩu hoặc tài khoản" });
   }
   const token = createJWT(checkLogin.id, checkLogin.username);
-  res.json({ message: "Đăng nhập thành công", token: token, user: checkLogin });
+  res
+    .status(200)
+    .json({ message: "Đăng nhập thành công", token: token, user: checkLogin });
 };
 
 // đây là hàm tạo người dùng upload 1 array ảnh
@@ -78,21 +80,32 @@ const createUser = async (req, res) => {
     }
 
     // Xử lý upload file (chỉ một ảnh) cho user
-    data.avatar = avatarFile ? avatarFile.path : null;
+    // data.avatar = avatarFile ? avatarFile.path : null;
+    let avatarPath = null;
+    if (avatarFile) {
+      avatarPath = `/uploads/${avatarFile.filename}`;
+    }
 
-    // Xử lý mã hóa password
-    data.password = await bcrypt.hash(password, 10);
-
-    // Tạo người dùng mới
-    const user = await userModel.createUser(data);
-    res.json(user);
+    try {
+      const user = await userModel.createUser({
+        email,
+        name,
+        phone,
+        password: await bcrypt.hash(password, 10),
+        avatar: avatarPath,
+      });
+      res.status(200).json(user);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Có lỗi xảy ra khi đăng ký user" });
+    }
   });
 };
 
 // get all dataUser
 const getUsers = async (req, res) => {
   const users = await userModel.getUsers();
-  res.json(users);
+  res.status(200).json(users);
 };
 
 // update user by id
@@ -125,7 +138,7 @@ const updateUsers = async (req, res) => {
         phone,
         avatar: avatarPath, // Ensure avatar is a single path string
       });
-      res.json(user);
+      res.status(200).json(user);
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(500).json({ message: "Có lỗi xảy ra khi update user" });
@@ -138,7 +151,7 @@ const findUserByID = async (req, res) => {
   const id = parseInt(req.params.id);
   const user = await userModel.getUserByID(id);
   if (user) {
-    res.json(user);
+    res.status(200).json(user);
   } else {
     res.status(500).json({ error: "User not found" });
   }
@@ -148,7 +161,7 @@ const findUserByID = async (req, res) => {
 const deleteUser = async (req, res) => {
   const id = parseInt(req.params.id);
   await userModel.deleteUser(id);
-  res.json({ message: "User deleted!" });
+  res.status(200).json({ message: "User deleted!" });
 };
 
 module.exports = {

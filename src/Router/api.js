@@ -5,6 +5,9 @@ const userController = require("../controllers/userController");
 const blogController = require("../controllers/blogController");
 const commentController = require("../controllers/commentController");
 const countryController = require("../controllers/coutryController");
+const productController = require("../controllers/productController");
+const brandController = require("../controllers/brandController");
+const categoryController = require("../controllers/categoryController");
 // Định nghĩa các tuyến đường API ở đây
 
 function requireAuth(req, res, next) {
@@ -46,10 +49,15 @@ router.get("/country/get-data", countryController.getDataCountry);
 router.delete("/country/delete/:id", countryController.deleteCountry);
 router.put("/country/update/:id", countryController.updateCountry);
 // PRODUCT API
+router.post("/product/create", productController.createProduct);
 
-
-
-
+// BRAND API
+router.post("/brand/create", brandController.creatBrand);
+router.get("/brand/get-data", brandController.getDataBrand);
+router.put("/brand/update/:id", brandController.updateBrand);
+router.delete("/brand/delete/:id", brandController.deleteBrand);
+// CATEGORY API
+router.post("/category/create", categoryController.createCategory);
 ///Example
 router.get("/example", (req, res) => {
   res.send(

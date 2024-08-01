@@ -53,7 +53,7 @@ const createBlog = async (req, res) => {
 
     try {
       const blog = await blogModel.createBlog(data);
-      res.json(blog);
+      res.status(200).json(blog);
     } catch (error) {
       console.error("Error creating blog:", error);
       res.status(500).json({ message: "Có lỗi xảy ra khi thêm bài viết" });
@@ -64,13 +64,13 @@ const createBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
   const id = parseInt(req.params.id);
   await blogModel.deleteBlog(id);
-  res.json({ message: "Blog deleted" });
+  res.status(200).json({ message: "Blog deleted" });
 };
 const getBlogWithComments = async (req, res) => {
   const id = parseInt(req.params.id);
   const blog = await blogModel.getBlogWithComments(id);
   if (blog) {
-    res.json(blog);
+    res.status(200).json(blog);
   } else {
     res.status(404).json({ error: "blog not found" });
   }
@@ -78,7 +78,7 @@ const getBlogWithComments = async (req, res) => {
 
 const getAllBlog = async (req, res) => {
   const blogs = await blogModel.getBlog();
-  res.json(blogs);
+  res.status(200).json(blogs);
 };
 
 module.exports = {

@@ -151,6 +151,32 @@ exports.Prisma.CountryScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status'
+};
+
+exports.Prisma.BrandScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  id_category: 'id_category',
+  id_brand: 'id_brand',
+  id_user: 'id_user',
+  name: 'name',
+  image: 'image',
+  price: 'price',
+  status: 'status',
+  sale: 'sale',
+  detail: 'detail',
+  company_profile: 'company_profile'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -166,7 +192,10 @@ exports.Prisma.ModelName = {
   User: 'User',
   Blog: 'Blog',
   CommentBlog: 'CommentBlog',
-  Country: 'Country'
+  Country: 'Country',
+  Category: 'Category',
+  Brand: 'Brand',
+  Product: 'Product'
 };
 
 /**

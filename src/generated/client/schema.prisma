@@ -44,3 +44,34 @@ model Country {
   id   Int    @id @default(autoincrement())
   name String
 }
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  status  Int
+  Product Product[]
+}
+
+model Brand {
+  id      Int       @id @default(autoincrement())
+  name    String
+  status  Int
+  Product Product[]
+}
+
+model Product {
+  id              Int     @id @default(autoincrement())
+  id_category     Int
+  id_brand        Int
+  id_user         Int
+  name            String?
+  image           String
+  price           Int
+  status          Int
+  sale            Int
+  detail          String?
+  company_profile String
+
+  brand    Brand    @relation(fields: [id_brand], references: [id])
+  category Category @relation(fields: [id_category], references: [id])
+}

@@ -16,7 +16,7 @@ const creatComment = async (req, res) => {
 
     try {
       const comment = await commentModel.createComment(data);
-      res.json(comment);
+      res.status(200).json(comment);
     } catch (error) {
       res.status(500).json({ error: "Error creating comment" });
     }
@@ -24,7 +24,7 @@ const creatComment = async (req, res) => {
 };
 const getDataComment = async (req, res) => {
   const comment = await commentModel.getDataComment();
-  res.json(comment);
+  res.status(200).json(comment);
 };
 
 module.exports = {

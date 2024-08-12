@@ -51,8 +51,10 @@ router.put("/country/update/:id", countryController.updateCountry);
 // PRODUCT API
 router.post("/product/create", productController.createProduct);
 router.get("/product/get-data", productController.getDataProduct);
+router.post("/product/change-status/:id", productController.changeStatus);
 router.delete("/product/delete/:id", productController.deleteProduct);
 router.put("/product/update/:id", productController.updateProduct);
+router.get("/product/search", productController.searchProductsController);
 // BRAND API
 router.post("/brand/create", brandController.creatBrand);
 router.get("/brand/get-data", brandController.getDataBrand);

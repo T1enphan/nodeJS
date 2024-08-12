@@ -1,8 +1,12 @@
 const brandModel = require("../models/brandModel");
 
 const creatBrand = async (req, res) => {
+  const { name, status } = req.body;
   const data = req.body;
-  const brand = await brandModel.createBrand(data);
+  const brand = await brandModel.createBrand({
+    name,
+    status: parseInt(status, 10),
+  });
   res.status(200).json(brand);
 };
 
@@ -20,7 +24,10 @@ const deleteBrand = async (req, res) => {
 const updateBrand = async (req, res) => {
   const id = parseInt(req.params.id);
   const { name, status } = req.body;
-  const brand = await brandModel.updateBrand(id, { name, status });
+  const brand = await brandModel.updateBrand(id, {
+    name,
+    status: parseInt(status, 10),
+  });
   res.status(200).json(brand);
 };
 

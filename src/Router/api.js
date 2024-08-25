@@ -54,6 +54,7 @@ router.get("/product/get-data", productController.getDataProduct);
 router.post("/product/change-status/:id", productController.changeStatus);
 router.delete("/product/delete/:id", productController.deleteProduct);
 router.put("/product/update/:id", productController.updateProduct);
+router.post("/product/cart", productController.productCart);
 router.get("/product/search", productController.searchProductsController);
 // BRAND API
 router.post("/brand/create", brandController.creatBrand);

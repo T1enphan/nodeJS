@@ -77,6 +77,11 @@ const changeStatus = async (productId) => {
     throw error; // Ném lỗi lên để controller xử lý
   }
 };
+const getProductById = async (id) => {
+  return await prisma.product.findUnique({
+    where: { id: parseInt(id) },
+  });
+};
 
 module.exports = {
   creatProduct,
@@ -85,4 +90,5 @@ module.exports = {
   getDataProduct,
   searchProducts,
   changeStatus,
+  getProductById,
 };

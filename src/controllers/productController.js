@@ -196,6 +196,40 @@ const changeStatus = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+const productCart = async (req, res) => {
+  try {
+    const data = req.body; // Lấy dữ liệu JSON từ request
+    const getProduct = [];
+
+    // Duyệt qua từng phần tử trong mảng data
+    for (const [key, value] of Object.entries(data)) {
+      const product = await productModel.getProductById(key);
+
+      if (!product) {
+        return res
+          .status(404)
+          .json({ error: `Product with ID ${key} not found` });
+      }
+
+      // Thêm số lượng vào sản phẩm và thêm vào mảng getProduct
+      getProduct.push({
+        ...product,
+        qty: value,
+      });
+    }
+
+    // Trả về phản hồi JSON
+    res.status(200).json({
+      response: "success",
+      data: getProduct,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   createProduct,
   deleteProduct,
@@ -203,4 +237,5 @@ module.exports = {
   updateProduct,
   searchProductsController,
   changeStatus,
+  productCart,
 };

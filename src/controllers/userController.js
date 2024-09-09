@@ -8,6 +8,7 @@ const {
 } = require("../Middleware/uploadMiddleware");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendMail = require("../SendMail/sendMail");
 
 function createJWT(userId, username) {
   const token = jwt.sign({ userId, username }, "neit", { expiresIn: "5h" });
@@ -95,6 +96,14 @@ const createUser = async (req, res) => {
         avatar: avatarPath,
       });
       res.status(200).json(user);
+
+      await sendMail(
+        email,
+        "Welcome!",
+        "Welcome to our service!",
+        "./templateMail.hbs",
+        { name } // Truyền các biến thay thế cho template
+      );
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(500).json({ message: "Có lỗi xảy ra khi đăng ký user" });

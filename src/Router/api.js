@@ -8,13 +8,14 @@ const countryController = require("../controllers/coutryController");
 const productController = require("../controllers/productController");
 const brandController = require("../controllers/brandController");
 const categoryController = require("../controllers/categoryController");
+const adminController = require("../controllers/adminController");
 // Định nghĩa các tuyến đường API ở đây
 
 function requireAuth(req, res, next) {
   const token = req.headers.authorization.split(" ")[1];
   console.log(token);
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized1" });
+    return res.status(401).json({ error: "Unauthorized" });
   }
   try {
     const decoded = jwt.verify(token, "neit");
@@ -25,10 +26,13 @@ function requireAuth(req, res, next) {
     return res.status(401).json({ error: "Unauthorized2" });
   }
 }
+// ADMIN API
+router.post("/admin/register", adminController.registerAdminAcc);
+router.post("/admin/login", adminController.loginAdmin);
+
 // USER LOGIN
 router.post("/login", userController.loginUser);
 router.post("/register", userController.createUser);
-
 //USER API
 router.get("/get-data", userController.getUsers);
 router.delete("/delete/:id", userController.deleteUser);

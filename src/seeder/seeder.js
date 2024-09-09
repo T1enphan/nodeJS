@@ -49,6 +49,88 @@ async function main() {
   //   ],
   // });
 
+  await prisma.category.createMany({
+    data: [
+      {
+        name: "Laptop",
+        status: 1,
+      },
+      {
+        name: "VGA",
+        status: 1,
+      },
+      {
+        name: "Main",
+        status: 1,
+      },
+      {
+        name: "Chip",
+        status: 1,
+      },
+      {
+        name: "Tai Nghe",
+        status: 1,
+      },
+      {
+        name: "Ram",
+        status: 1,
+      },
+      {
+        name: "GPU",
+        status: 1,
+      },
+      {
+        name: "Chuột",
+        status: 1,
+      },
+      {
+        name: "Bàn Phím",
+        status: 1,
+      },
+    ],
+  });
+
+  await prisma.brand.createMany({
+    data: [
+      {
+        name: "MSI",
+        status: 1,
+      },
+      {
+        name: "HP",
+        status: 1,
+      },
+      {
+        name: "ASUS",
+        status: 1,
+      },
+      {
+        name: "ROG",
+        status: 1,
+      },
+      {
+        name: "Logitech",
+        status: 1,
+      },
+      {
+        name: "Razer",
+        status: 1,
+      },
+      {
+        name: "Apple",
+        status: 1,
+      },
+      {
+        name: "AMD",
+        status: 1,
+      },
+      {
+        name: "Intel",
+        status: 1,
+      },
+    ],
+  });
+
   await prisma.product.createMany({
     data: [
       {

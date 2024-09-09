@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Admin
+ * 
+ */
+export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
+/**
  * Model Blog
  * 
  */
@@ -48,6 +53,24 @@ export type Brand = $Result.DefaultSelection<Prisma.$BrandPayload>
  * 
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const Role: {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+}
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
 
 /**
  * ##  Prisma Client ʲˢ
@@ -180,6 +203,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admins
+    * const admins = await prisma.admin.findMany()
+    * ```
+    */
+  get admin(): Prisma.AdminDelegate<ExtArgs>;
 
   /**
    * `prisma.blog`: Exposes CRUD operations for the **Blog** model.
@@ -718,6 +751,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Admin: 'Admin',
     Blog: 'Blog',
     CommentBlog: 'CommentBlog',
     Country: 'Country',
@@ -739,7 +773,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "blog" | "commentBlog" | "country" | "category" | "brand" | "product"
+      modelProps: "user" | "admin" | "blog" | "commentBlog" | "country" | "category" | "brand" | "product"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -806,6 +840,72 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Admin: {
+        payload: Prisma.$AdminPayload<ExtArgs>
+        fields: Prisma.AdminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findFirst: {
+            args: Prisma.AdminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          findMany: {
+            args: Prisma.AdminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>[]
+          }
+          create: {
+            args: Prisma.AdminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          createMany: {
+            args: Prisma.AdminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AdminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          update: {
+            args: Prisma.AdminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AdminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdminPayload>
+          }
+          aggregate: {
+            args: Prisma.AdminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmin>
+          }
+          groupBy: {
+            args: Prisma.AdminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdminCountArgs<ExtArgs>
+            result: $Utils.Optional<AdminCountAggregateOutputType> | number
           }
         }
       }
@@ -1516,6 +1616,8 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     password: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1525,6 +1627,8 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     password: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1534,6 +1638,8 @@ export namespace Prisma {
     phone: number
     avatar: number
     password: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -1553,6 +1659,8 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     password?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1562,6 +1670,8 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     password?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1571,6 +1681,8 @@ export namespace Prisma {
     phone?: true
     avatar?: true
     password?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -1667,6 +1779,8 @@ export namespace Prisma {
     phone: string | null
     avatar: string | null
     password: string | null
+    created_at: Date
+    updated_at: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1695,6 +1809,8 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     password?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     comments?: boolean | User$commentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1707,6 +1823,8 @@ export namespace Prisma {
     phone?: boolean
     avatar?: boolean
     password?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1726,6 +1844,8 @@ export namespace Prisma {
       phone: string | null
       avatar: string | null
       password: string | null
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2102,6 +2222,8 @@ export namespace Prisma {
     readonly phone: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly created_at: FieldRef<"User", 'DateTime'>
+    readonly updated_at: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2436,6 +2558,905 @@ export namespace Prisma {
 
 
   /**
+   * Model Admin
+   */
+
+  export type AggregateAdmin = {
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  export type AdminAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AdminSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AdminMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    password: string | null
+    role: $Enums.Role | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AdminMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    email: string | null
+    phone: string | null
+    password: string | null
+    role: $Enums.Role | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type AdminCountAggregateOutputType = {
+    id: number
+    name: number
+    email: number
+    phone: number
+    password: number
+    role: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type AdminAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type AdminSumAggregateInputType = {
+    id?: true
+  }
+
+  export type AdminMinAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AdminMaxAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type AdminCountAggregateInputType = {
+    id?: true
+    name?: true
+    email?: true
+    phone?: true
+    password?: true
+    role?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type AdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admin to aggregate.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Admins
+    **/
+    _count?: true | AdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AdminAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AdminSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type GetAdminAggregateType<T extends AdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin[P]>
+      : GetScalarType<T[P], AggregateAdmin[P]>
+  }
+
+
+
+
+  export type AdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdminWhereInput
+    orderBy?: AdminOrderByWithAggregationInput | AdminOrderByWithAggregationInput[]
+    by: AdminScalarFieldEnum[] | AdminScalarFieldEnum
+    having?: AdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdminCountAggregateInputType | true
+    _avg?: AdminAvgAggregateInputType
+    _sum?: AdminSumAggregateInputType
+    _min?: AdminMinAggregateInputType
+    _max?: AdminMaxAggregateInputType
+  }
+
+  export type AdminGroupByOutputType = {
+    id: number
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at: Date
+    updated_at: Date
+    _count: AdminCountAggregateOutputType | null
+    _avg: AdminAvgAggregateOutputType | null
+    _sum: AdminSumAggregateOutputType | null
+    _min: AdminMinAggregateOutputType | null
+    _max: AdminMaxAggregateOutputType | null
+  }
+
+  type GetAdminGroupByPayload<T extends AdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdminGroupByOutputType[P]>
+            : GetScalarType<T[P], AdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    password?: boolean
+    role?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["admin"]>
+
+
+  export type AdminSelectScalar = {
+    id?: boolean
+    name?: boolean
+    email?: boolean
+    phone?: boolean
+    password?: boolean
+    role?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Admin"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      email: string
+      phone: string
+      password: string
+      role: $Enums.Role
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["admin"]>
+    composites: {}
+  }
+
+  type AdminGetPayload<S extends boolean | null | undefined | AdminDefaultArgs> = $Result.GetResult<Prisma.$AdminPayload, S>
+
+  type AdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AdminFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AdminCountAggregateInputType | true
+    }
+
+  export interface AdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Admin'], meta: { name: 'Admin' } }
+    /**
+     * Find zero or one Admin that matches the filter.
+     * @param {AdminFindUniqueArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdminFindUniqueArgs>(args: SelectSubset<T, AdminFindUniqueArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Admin that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AdminFindUniqueOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdminFindUniqueOrThrowArgs>(args: SelectSubset<T, AdminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Admin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdminFindFirstArgs>(args?: SelectSubset<T, AdminFindFirstArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Admin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindFirstOrThrowArgs} args - Arguments to find a Admin
+     * @example
+     * // Get one Admin
+     * const admin = await prisma.admin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdminFindFirstOrThrowArgs>(args?: SelectSubset<T, AdminFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Admins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admins
+     * const admins = await prisma.admin.findMany()
+     * 
+     * // Get first 10 Admins
+     * const admins = await prisma.admin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const adminWithIdOnly = await prisma.admin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AdminFindManyArgs>(args?: SelectSubset<T, AdminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Admin.
+     * @param {AdminCreateArgs} args - Arguments to create a Admin.
+     * @example
+     * // Create one Admin
+     * const Admin = await prisma.admin.create({
+     *   data: {
+     *     // ... data to create a Admin
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdminCreateArgs>(args: SelectSubset<T, AdminCreateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Admins.
+     * @param {AdminCreateManyArgs} args - Arguments to create many Admins.
+     * @example
+     * // Create many Admins
+     * const admin = await prisma.admin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdminCreateManyArgs>(args?: SelectSubset<T, AdminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Admin.
+     * @param {AdminDeleteArgs} args - Arguments to delete one Admin.
+     * @example
+     * // Delete one Admin
+     * const Admin = await prisma.admin.delete({
+     *   where: {
+     *     // ... filter to delete one Admin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdminDeleteArgs>(args: SelectSubset<T, AdminDeleteArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Admin.
+     * @param {AdminUpdateArgs} args - Arguments to update one Admin.
+     * @example
+     * // Update one Admin
+     * const admin = await prisma.admin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdminUpdateArgs>(args: SelectSubset<T, AdminUpdateArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Admins.
+     * @param {AdminDeleteManyArgs} args - Arguments to filter Admins to delete.
+     * @example
+     * // Delete a few Admins
+     * const { count } = await prisma.admin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdminDeleteManyArgs>(args?: SelectSubset<T, AdminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admins
+     * const admin = await prisma.admin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdminUpdateManyArgs>(args: SelectSubset<T, AdminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Admin.
+     * @param {AdminUpsertArgs} args - Arguments to update or create a Admin.
+     * @example
+     * // Update or create a Admin
+     * const admin = await prisma.admin.upsert({
+     *   create: {
+     *     // ... data to create a Admin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdminUpsertArgs>(args: SelectSubset<T, AdminUpsertArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Admins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminCountArgs} args - Arguments to filter Admins to count.
+     * @example
+     * // Count the number of Admins
+     * const count = await prisma.admin.count({
+     *   where: {
+     *     // ... the filter for the Admins we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdminCountArgs>(
+      args?: Subset<T, AdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdminAggregateArgs>(args: Subset<T, AdminAggregateArgs>): Prisma.PrismaPromise<GetAdminAggregateType<T>>
+
+    /**
+     * Group by Admin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdminGroupByArgs['orderBy'] }
+        : { orderBy?: AdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Admin model
+   */
+  readonly fields: AdminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Admin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Admin model
+   */ 
+  interface AdminFieldRefs {
+    readonly id: FieldRef<"Admin", 'Int'>
+    readonly name: FieldRef<"Admin", 'String'>
+    readonly email: FieldRef<"Admin", 'String'>
+    readonly phone: FieldRef<"Admin", 'String'>
+    readonly password: FieldRef<"Admin", 'String'>
+    readonly role: FieldRef<"Admin", 'Role'>
+    readonly created_at: FieldRef<"Admin", 'DateTime'>
+    readonly updated_at: FieldRef<"Admin", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Admin findUnique
+   */
+  export type AdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findUniqueOrThrow
+   */
+  export type AdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin findFirst
+   */
+  export type AdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findFirstOrThrow
+   */
+  export type AdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter, which Admin to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Admins.
+     */
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin findMany
+   */
+  export type AdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter, which Admins to fetch.
+     */
+    where?: AdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Admins to fetch.
+     */
+    orderBy?: AdminOrderByWithRelationInput | AdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Admins.
+     */
+    cursor?: AdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Admins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Admins.
+     */
+    skip?: number
+    distinct?: AdminScalarFieldEnum | AdminScalarFieldEnum[]
+  }
+
+  /**
+   * Admin create
+   */
+  export type AdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * The data needed to create a Admin.
+     */
+    data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+  }
+
+  /**
+   * Admin createMany
+   */
+  export type AdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Admins.
+     */
+    data: AdminCreateManyInput | AdminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Admin update
+   */
+  export type AdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * The data needed to update a Admin.
+     */
+    data: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+    /**
+     * Choose, which Admin to update.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin updateMany
+   */
+  export type AdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Admins.
+     */
+    data: XOR<AdminUpdateManyMutationInput, AdminUncheckedUpdateManyInput>
+    /**
+     * Filter which Admins to update
+     */
+    where?: AdminWhereInput
+  }
+
+  /**
+   * Admin upsert
+   */
+  export type AdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * The filter to search for the Admin to update in case it exists.
+     */
+    where: AdminWhereUniqueInput
+    /**
+     * In case the Admin found by the `where` argument doesn't exist, create a new Admin with this data.
+     */
+    create: XOR<AdminCreateInput, AdminUncheckedCreateInput>
+    /**
+     * In case the Admin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdminUpdateInput, AdminUncheckedUpdateInput>
+  }
+
+  /**
+   * Admin delete
+   */
+  export type AdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+    /**
+     * Filter which Admin to delete.
+     */
+    where: AdminWhereUniqueInput
+  }
+
+  /**
+   * Admin deleteMany
+   */
+  export type AdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Admins to delete
+     */
+    where?: AdminWhereInput
+  }
+
+  /**
+   * Admin without action
+   */
+  export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Admin
+     */
+    select?: AdminSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Model Blog
    */
 
@@ -2461,6 +3482,8 @@ export namespace Prisma {
     description: string | null
     image: string | null
     content: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BlogMaxAggregateOutputType = {
@@ -2469,6 +3492,8 @@ export namespace Prisma {
     description: string | null
     image: string | null
     content: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BlogCountAggregateOutputType = {
@@ -2477,6 +3502,8 @@ export namespace Prisma {
     description: number
     image: number
     content: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -2495,6 +3522,8 @@ export namespace Prisma {
     description?: true
     image?: true
     content?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BlogMaxAggregateInputType = {
@@ -2503,6 +3532,8 @@ export namespace Prisma {
     description?: true
     image?: true
     content?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BlogCountAggregateInputType = {
@@ -2511,6 +3542,8 @@ export namespace Prisma {
     description?: true
     image?: true
     content?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -2606,6 +3639,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at: Date
+    updated_at: Date
     _count: BlogCountAggregateOutputType | null
     _avg: BlogAvgAggregateOutputType | null
     _sum: BlogSumAggregateOutputType | null
@@ -2633,6 +3668,8 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     comments?: boolean | Blog$commentsArgs<ExtArgs>
     _count?: boolean | BlogCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["blog"]>
@@ -2644,6 +3681,8 @@ export namespace Prisma {
     description?: boolean
     image?: boolean
     content?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type BlogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2662,6 +3701,8 @@ export namespace Prisma {
       description: string
       image: string
       content: string
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["blog"]>
     composites: {}
   }
@@ -3037,6 +4078,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Blog", 'String'>
     readonly image: FieldRef<"Blog", 'String'>
     readonly content: FieldRef<"Blog", 'String'>
+    readonly created_at: FieldRef<"Blog", 'DateTime'>
+    readonly updated_at: FieldRef<"Blog", 'DateTime'>
   }
     
 
@@ -3404,6 +4447,8 @@ export namespace Prisma {
     name_user: string | null
     avatar_user: string | null
     level: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CommentBlogMaxAggregateOutputType = {
@@ -3414,6 +4459,8 @@ export namespace Prisma {
     name_user: string | null
     avatar_user: string | null
     level: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CommentBlogCountAggregateOutputType = {
@@ -3424,6 +4471,8 @@ export namespace Prisma {
     name_user: number
     avatar_user: number
     level: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -3450,6 +4499,8 @@ export namespace Prisma {
     name_user?: true
     avatar_user?: true
     level?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CommentBlogMaxAggregateInputType = {
@@ -3460,6 +4511,8 @@ export namespace Prisma {
     name_user?: true
     avatar_user?: true
     level?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CommentBlogCountAggregateInputType = {
@@ -3470,6 +4523,8 @@ export namespace Prisma {
     name_user?: true
     avatar_user?: true
     level?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -3567,6 +4622,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at: Date
+    updated_at: Date
     _count: CommentBlogCountAggregateOutputType | null
     _avg: CommentBlogAvgAggregateOutputType | null
     _sum: CommentBlogSumAggregateOutputType | null
@@ -3596,6 +4653,8 @@ export namespace Prisma {
     name_user?: boolean
     avatar_user?: boolean
     level?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     blog?: boolean | BlogDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["commentBlog"]>
@@ -3609,6 +4668,8 @@ export namespace Prisma {
     name_user?: boolean
     avatar_user?: boolean
     level?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type CommentBlogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3630,6 +4691,8 @@ export namespace Prisma {
       name_user: string
       avatar_user: string
       level: number
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["commentBlog"]>
     composites: {}
   }
@@ -4008,6 +5071,8 @@ export namespace Prisma {
     readonly name_user: FieldRef<"CommentBlog", 'String'>
     readonly avatar_user: FieldRef<"CommentBlog", 'String'>
     readonly level: FieldRef<"CommentBlog", 'Int'>
+    readonly created_at: FieldRef<"CommentBlog", 'DateTime'>
+    readonly updated_at: FieldRef<"CommentBlog", 'DateTime'>
   }
     
 
@@ -4344,16 +5409,22 @@ export namespace Prisma {
   export type CountryMinAggregateOutputType = {
     id: number | null
     name: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CountryMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CountryCountAggregateOutputType = {
     id: number
     name: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -4369,16 +5440,22 @@ export namespace Prisma {
   export type CountryMinAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CountryMaxAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CountryCountAggregateInputType = {
     id?: true
     name?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -4471,6 +5548,8 @@ export namespace Prisma {
   export type CountryGroupByOutputType = {
     id: number
     name: string
+    created_at: Date
+    updated_at: Date
     _count: CountryCountAggregateOutputType | null
     _avg: CountryAvgAggregateOutputType | null
     _sum: CountrySumAggregateOutputType | null
@@ -4495,12 +5574,16 @@ export namespace Prisma {
   export type CountrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }, ExtArgs["result"]["country"]>
 
 
   export type CountrySelectScalar = {
     id?: boolean
     name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
 
@@ -4510,6 +5593,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["country"]>
     composites: {}
   }
@@ -4881,6 +5966,8 @@ export namespace Prisma {
   interface CountryFieldRefs {
     readonly id: FieldRef<"Country", 'Int'>
     readonly name: FieldRef<"Country", 'String'>
+    readonly created_at: FieldRef<"Country", 'DateTime'>
+    readonly updated_at: FieldRef<"Country", 'DateTime'>
   }
     
 
@@ -5180,18 +6267,24 @@ export namespace Prisma {
     id: number | null
     name: string | null
     status: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CategoryMaxAggregateOutputType = {
     id: number | null
     name: string | null
     status: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type CategoryCountAggregateOutputType = {
     id: number
     name: number
     status: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -5210,18 +6303,24 @@ export namespace Prisma {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CategoryMaxAggregateInputType = {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type CategoryCountAggregateInputType = {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -5315,6 +6414,8 @@ export namespace Prisma {
     id: number
     name: string
     status: number
+    created_at: Date
+    updated_at: Date
     _count: CategoryCountAggregateOutputType | null
     _avg: CategoryAvgAggregateOutputType | null
     _sum: CategorySumAggregateOutputType | null
@@ -5340,6 +6441,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     Product?: boolean | Category$ProductArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
@@ -5349,6 +6452,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5365,6 +6470,8 @@ export namespace Prisma {
       id: number
       name: string
       status: number
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["category"]>
     composites: {}
   }
@@ -5738,6 +6845,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Category", 'Int'>
     readonly name: FieldRef<"Category", 'String'>
     readonly status: FieldRef<"Category", 'Int'>
+    readonly created_at: FieldRef<"Category", 'DateTime'>
+    readonly updated_at: FieldRef<"Category", 'DateTime'>
   }
     
 
@@ -6097,18 +7206,24 @@ export namespace Prisma {
     id: number | null
     name: string | null
     status: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BrandMaxAggregateOutputType = {
     id: number | null
     name: string | null
     status: number | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type BrandCountAggregateOutputType = {
     id: number
     name: number
     status: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -6127,18 +7242,24 @@ export namespace Prisma {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BrandMaxAggregateInputType = {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type BrandCountAggregateInputType = {
     id?: true
     name?: true
     status?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -6232,6 +7353,8 @@ export namespace Prisma {
     id: number
     name: string
     status: number
+    created_at: Date
+    updated_at: Date
     _count: BrandCountAggregateOutputType | null
     _avg: BrandAvgAggregateOutputType | null
     _sum: BrandSumAggregateOutputType | null
@@ -6257,6 +7380,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     Product?: boolean | Brand$ProductArgs<ExtArgs>
     _count?: boolean | BrandCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["brand"]>
@@ -6266,6 +7391,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type BrandInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6282,6 +7409,8 @@ export namespace Prisma {
       id: number
       name: string
       status: number
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["brand"]>
     composites: {}
   }
@@ -6655,6 +7784,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Brand", 'Int'>
     readonly name: FieldRef<"Brand", 'String'>
     readonly status: FieldRef<"Brand", 'Int'>
+    readonly created_at: FieldRef<"Brand", 'DateTime'>
+    readonly updated_at: FieldRef<"Brand", 'DateTime'>
   }
     
 
@@ -7032,6 +8163,8 @@ export namespace Prisma {
     sale: number | null
     detail: string | null
     company_profile: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -7046,6 +8179,8 @@ export namespace Prisma {
     sale: number | null
     detail: string | null
     company_profile: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -7060,6 +8195,8 @@ export namespace Prisma {
     sale: number
     detail: number
     company_profile: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -7096,6 +8233,8 @@ export namespace Prisma {
     sale?: true
     detail?: true
     company_profile?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -7110,6 +8249,8 @@ export namespace Prisma {
     sale?: true
     detail?: true
     company_profile?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -7124,6 +8265,8 @@ export namespace Prisma {
     sale?: true
     detail?: true
     company_profile?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -7225,6 +8368,8 @@ export namespace Prisma {
     sale: number
     detail: string | null
     company_profile: string
+    created_at: Date
+    updated_at: Date
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -7258,6 +8403,8 @@ export namespace Prisma {
     sale?: boolean
     detail?: boolean
     company_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     brand?: boolean | BrandDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -7275,6 +8422,8 @@ export namespace Prisma {
     sale?: boolean
     detail?: boolean
     company_profile?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7300,6 +8449,8 @@ export namespace Prisma {
       sale: number
       detail: string | null
       company_profile: string
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -7682,6 +8833,8 @@ export namespace Prisma {
     readonly sale: FieldRef<"Product", 'Int'>
     readonly detail: FieldRef<"Product", 'String'>
     readonly company_profile: FieldRef<"Product", 'String'>
+    readonly created_at: FieldRef<"Product", 'DateTime'>
+    readonly updated_at: FieldRef<"Product", 'DateTime'>
   }
     
 
@@ -8015,10 +9168,26 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     avatar: 'avatar',
-    password: 'password'
+    password: 'password',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const AdminScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    email: 'email',
+    phone: 'phone',
+    password: 'password',
+    role: 'role',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
   export const BlogScalarFieldEnum: {
@@ -8026,7 +9195,9 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     image: 'image',
-    content: 'content'
+    content: 'content',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
@@ -8039,7 +9210,9 @@ export namespace Prisma {
     id_blog: 'id_blog',
     name_user: 'name_user',
     avatar_user: 'avatar_user',
-    level: 'level'
+    level: 'level',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type CommentBlogScalarFieldEnum = (typeof CommentBlogScalarFieldEnum)[keyof typeof CommentBlogScalarFieldEnum]
@@ -8047,7 +9220,9 @@ export namespace Prisma {
 
   export const CountryScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type CountryScalarFieldEnum = (typeof CountryScalarFieldEnum)[keyof typeof CountryScalarFieldEnum]
@@ -8056,7 +9231,9 @@ export namespace Prisma {
   export const CategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    status: 'status'
+    status: 'status',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
@@ -8065,7 +9242,9 @@ export namespace Prisma {
   export const BrandScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    status: 'status'
+    status: 'status',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof BrandScalarFieldEnum]
@@ -8082,7 +9261,9 @@ export namespace Prisma {
     status: 'status',
     sale: 'sale',
     detail: 'detail',
-    company_profile: 'company_profile'
+    company_profile: 'company_profile',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -8124,6 +9305,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -8143,6 +9338,8 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
+    created_at?: DateTimeFilter<"User"> | Date | string
+    updated_at?: DateTimeFilter<"User"> | Date | string
     comments?: CommentBlogListRelationFilter
   }
 
@@ -8153,6 +9350,8 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     comments?: CommentBlogOrderByRelationAggregateInput
   }
 
@@ -8166,6 +9365,8 @@ export namespace Prisma {
     phone?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
+    created_at?: DateTimeFilter<"User"> | Date | string
+    updated_at?: DateTimeFilter<"User"> | Date | string
     comments?: CommentBlogListRelationFilter
   }, "id" | "email">
 
@@ -8176,6 +9377,8 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -8193,6 +9396,77 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type AdminWhereInput = {
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    id?: IntFilter<"Admin"> | number
+    name?: StringFilter<"Admin"> | string
+    email?: StringFilter<"Admin"> | string
+    phone?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    role?: EnumRoleFilter<"Admin"> | $Enums.Role
+    created_at?: DateTimeFilter<"Admin"> | Date | string
+    updated_at?: DateTimeFilter<"Admin"> | Date | string
+  }
+
+  export type AdminOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AdminWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    email?: string
+    AND?: AdminWhereInput | AdminWhereInput[]
+    OR?: AdminWhereInput[]
+    NOT?: AdminWhereInput | AdminWhereInput[]
+    name?: StringFilter<"Admin"> | string
+    phone?: StringFilter<"Admin"> | string
+    password?: StringFilter<"Admin"> | string
+    role?: EnumRoleFilter<"Admin"> | $Enums.Role
+    created_at?: DateTimeFilter<"Admin"> | Date | string
+    updated_at?: DateTimeFilter<"Admin"> | Date | string
+  }, "id" | "email">
+
+  export type AdminOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: AdminCountOrderByAggregateInput
+    _avg?: AdminAvgOrderByAggregateInput
+    _max?: AdminMaxOrderByAggregateInput
+    _min?: AdminMinOrderByAggregateInput
+    _sum?: AdminSumOrderByAggregateInput
+  }
+
+  export type AdminScalarWhereWithAggregatesInput = {
+    AND?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    OR?: AdminScalarWhereWithAggregatesInput[]
+    NOT?: AdminScalarWhereWithAggregatesInput | AdminScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Admin"> | number
+    name?: StringWithAggregatesFilter<"Admin"> | string
+    email?: StringWithAggregatesFilter<"Admin"> | string
+    phone?: StringWithAggregatesFilter<"Admin"> | string
+    password?: StringWithAggregatesFilter<"Admin"> | string
+    role?: EnumRoleWithAggregatesFilter<"Admin"> | $Enums.Role
+    created_at?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
   }
 
   export type BlogWhereInput = {
@@ -8204,6 +9478,8 @@ export namespace Prisma {
     description?: StringFilter<"Blog"> | string
     image?: StringFilter<"Blog"> | string
     content?: StringFilter<"Blog"> | string
+    created_at?: DateTimeFilter<"Blog"> | Date | string
+    updated_at?: DateTimeFilter<"Blog"> | Date | string
     comments?: CommentBlogListRelationFilter
   }
 
@@ -8213,6 +9489,8 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     comments?: CommentBlogOrderByRelationAggregateInput
   }
 
@@ -8225,6 +9503,8 @@ export namespace Prisma {
     description?: StringFilter<"Blog"> | string
     image?: StringFilter<"Blog"> | string
     content?: StringFilter<"Blog"> | string
+    created_at?: DateTimeFilter<"Blog"> | Date | string
+    updated_at?: DateTimeFilter<"Blog"> | Date | string
     comments?: CommentBlogListRelationFilter
   }, "id">
 
@@ -8234,6 +9514,8 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: BlogCountOrderByAggregateInput
     _avg?: BlogAvgOrderByAggregateInput
     _max?: BlogMaxOrderByAggregateInput
@@ -8250,6 +9532,8 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Blog"> | string
     image?: StringWithAggregatesFilter<"Blog"> | string
     content?: StringWithAggregatesFilter<"Blog"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Blog"> | Date | string
   }
 
   export type CommentBlogWhereInput = {
@@ -8263,6 +9547,8 @@ export namespace Prisma {
     name_user?: StringFilter<"CommentBlog"> | string
     avatar_user?: StringFilter<"CommentBlog"> | string
     level?: IntFilter<"CommentBlog"> | number
+    created_at?: DateTimeFilter<"CommentBlog"> | Date | string
+    updated_at?: DateTimeFilter<"CommentBlog"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     blog?: XOR<BlogRelationFilter, BlogWhereInput>
   }
@@ -8275,6 +9561,8 @@ export namespace Prisma {
     name_user?: SortOrder
     avatar_user?: SortOrder
     level?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
     blog?: BlogOrderByWithRelationInput
   }
@@ -8290,6 +9578,8 @@ export namespace Prisma {
     name_user?: StringFilter<"CommentBlog"> | string
     avatar_user?: StringFilter<"CommentBlog"> | string
     level?: IntFilter<"CommentBlog"> | number
+    created_at?: DateTimeFilter<"CommentBlog"> | Date | string
+    updated_at?: DateTimeFilter<"CommentBlog"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     blog?: XOR<BlogRelationFilter, BlogWhereInput>
   }, "id">
@@ -8302,6 +9592,8 @@ export namespace Prisma {
     name_user?: SortOrder
     avatar_user?: SortOrder
     level?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: CommentBlogCountOrderByAggregateInput
     _avg?: CommentBlogAvgOrderByAggregateInput
     _max?: CommentBlogMaxOrderByAggregateInput
@@ -8320,6 +9612,8 @@ export namespace Prisma {
     name_user?: StringWithAggregatesFilter<"CommentBlog"> | string
     avatar_user?: StringWithAggregatesFilter<"CommentBlog"> | string
     level?: IntWithAggregatesFilter<"CommentBlog"> | number
+    created_at?: DateTimeWithAggregatesFilter<"CommentBlog"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"CommentBlog"> | Date | string
   }
 
   export type CountryWhereInput = {
@@ -8328,11 +9622,15 @@ export namespace Prisma {
     NOT?: CountryWhereInput | CountryWhereInput[]
     id?: IntFilter<"Country"> | number
     name?: StringFilter<"Country"> | string
+    created_at?: DateTimeFilter<"Country"> | Date | string
+    updated_at?: DateTimeFilter<"Country"> | Date | string
   }
 
   export type CountryOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CountryWhereUniqueInput = Prisma.AtLeast<{
@@ -8341,11 +9639,15 @@ export namespace Prisma {
     OR?: CountryWhereInput[]
     NOT?: CountryWhereInput | CountryWhereInput[]
     name?: StringFilter<"Country"> | string
+    created_at?: DateTimeFilter<"Country"> | Date | string
+    updated_at?: DateTimeFilter<"Country"> | Date | string
   }, "id">
 
   export type CountryOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: CountryCountOrderByAggregateInput
     _avg?: CountryAvgOrderByAggregateInput
     _max?: CountryMaxOrderByAggregateInput
@@ -8359,6 +9661,8 @@ export namespace Prisma {
     NOT?: CountryScalarWhereWithAggregatesInput | CountryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Country"> | number
     name?: StringWithAggregatesFilter<"Country"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Country"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Country"> | Date | string
   }
 
   export type CategoryWhereInput = {
@@ -8368,6 +9672,8 @@ export namespace Prisma {
     id?: IntFilter<"Category"> | number
     name?: StringFilter<"Category"> | string
     status?: IntFilter<"Category"> | number
+    created_at?: DateTimeFilter<"Category"> | Date | string
+    updated_at?: DateTimeFilter<"Category"> | Date | string
     Product?: ProductListRelationFilter
   }
 
@@ -8375,6 +9681,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     Product?: ProductOrderByRelationAggregateInput
   }
 
@@ -8385,6 +9693,8 @@ export namespace Prisma {
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     name?: StringFilter<"Category"> | string
     status?: IntFilter<"Category"> | number
+    created_at?: DateTimeFilter<"Category"> | Date | string
+    updated_at?: DateTimeFilter<"Category"> | Date | string
     Product?: ProductListRelationFilter
   }, "id">
 
@@ -8392,6 +9702,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _avg?: CategoryAvgOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -8406,6 +9718,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Category"> | number
     name?: StringWithAggregatesFilter<"Category"> | string
     status?: IntWithAggregatesFilter<"Category"> | number
+    created_at?: DateTimeWithAggregatesFilter<"Category"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Category"> | Date | string
   }
 
   export type BrandWhereInput = {
@@ -8415,6 +9729,8 @@ export namespace Prisma {
     id?: IntFilter<"Brand"> | number
     name?: StringFilter<"Brand"> | string
     status?: IntFilter<"Brand"> | number
+    created_at?: DateTimeFilter<"Brand"> | Date | string
+    updated_at?: DateTimeFilter<"Brand"> | Date | string
     Product?: ProductListRelationFilter
   }
 
@@ -8422,6 +9738,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     Product?: ProductOrderByRelationAggregateInput
   }
 
@@ -8432,6 +9750,8 @@ export namespace Prisma {
     NOT?: BrandWhereInput | BrandWhereInput[]
     name?: StringFilter<"Brand"> | string
     status?: IntFilter<"Brand"> | number
+    created_at?: DateTimeFilter<"Brand"> | Date | string
+    updated_at?: DateTimeFilter<"Brand"> | Date | string
     Product?: ProductListRelationFilter
   }, "id">
 
@@ -8439,6 +9759,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: BrandCountOrderByAggregateInput
     _avg?: BrandAvgOrderByAggregateInput
     _max?: BrandMaxOrderByAggregateInput
@@ -8453,6 +9775,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Brand"> | number
     name?: StringWithAggregatesFilter<"Brand"> | string
     status?: IntWithAggregatesFilter<"Brand"> | number
+    created_at?: DateTimeWithAggregatesFilter<"Brand"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Brand"> | Date | string
   }
 
   export type ProductWhereInput = {
@@ -8470,6 +9794,8 @@ export namespace Prisma {
     sale?: IntFilter<"Product"> | number
     detail?: StringNullableFilter<"Product"> | string | null
     company_profile?: StringFilter<"Product"> | string
+    created_at?: DateTimeFilter<"Product"> | Date | string
+    updated_at?: DateTimeFilter<"Product"> | Date | string
     brand?: XOR<BrandRelationFilter, BrandWhereInput>
     category?: XOR<CategoryRelationFilter, CategoryWhereInput>
   }
@@ -8486,6 +9812,8 @@ export namespace Prisma {
     sale?: SortOrder
     detail?: SortOrderInput | SortOrder
     company_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     brand?: BrandOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
   }
@@ -8505,6 +9833,8 @@ export namespace Prisma {
     sale?: IntFilter<"Product"> | number
     detail?: StringNullableFilter<"Product"> | string | null
     company_profile?: StringFilter<"Product"> | string
+    created_at?: DateTimeFilter<"Product"> | Date | string
+    updated_at?: DateTimeFilter<"Product"> | Date | string
     brand?: XOR<BrandRelationFilter, BrandWhereInput>
     category?: XOR<CategoryRelationFilter, CategoryWhereInput>
   }, "id">
@@ -8521,6 +9851,8 @@ export namespace Prisma {
     sale?: SortOrder
     detail?: SortOrderInput | SortOrder
     company_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -8543,6 +9875,8 @@ export namespace Prisma {
     sale?: IntWithAggregatesFilter<"Product"> | number
     detail?: StringNullableWithAggregatesFilter<"Product"> | string | null
     company_profile?: StringWithAggregatesFilter<"Product"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -8551,6 +9885,8 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     password?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     comments?: CommentBlogCreateNestedManyWithoutUserInput
   }
 
@@ -8561,6 +9897,8 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     password?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
     comments?: CommentBlogUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8570,6 +9908,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentBlogUpdateManyWithoutUserNestedInput
   }
 
@@ -8580,6 +9920,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentBlogUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8590,6 +9932,8 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     password?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8598,6 +9942,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8607,6 +9953,82 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminCreateInput = {
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AdminUncheckedCreateInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AdminUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminCreateManyInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AdminUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BlogCreateInput = {
@@ -8614,6 +10036,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at?: Date | string
+    updated_at?: Date | string
     comments?: CommentBlogCreateNestedManyWithoutBlogInput
   }
 
@@ -8623,6 +10047,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at?: Date | string
+    updated_at?: Date | string
     comments?: CommentBlogUncheckedCreateNestedManyWithoutBlogInput
   }
 
@@ -8631,6 +10057,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentBlogUpdateManyWithoutBlogNestedInput
   }
 
@@ -8640,6 +10068,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentBlogUncheckedUpdateManyWithoutBlogNestedInput
   }
 
@@ -8649,6 +10079,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BlogUpdateManyMutationInput = {
@@ -8656,6 +10088,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BlogUncheckedUpdateManyInput = {
@@ -8664,6 +10098,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogCreateInput = {
@@ -8671,6 +10107,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
     user: UserCreateNestedOneWithoutCommentsInput
     blog: BlogCreateNestedOneWithoutCommentsInput
   }
@@ -8683,6 +10121,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogUpdateInput = {
@@ -8690,6 +10130,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCommentsNestedInput
     blog?: BlogUpdateOneRequiredWithoutCommentsNestedInput
   }
@@ -8702,6 +10144,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogCreateManyInput = {
@@ -8712,6 +10156,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogUpdateManyMutationInput = {
@@ -8719,6 +10165,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogUncheckedUpdateManyInput = {
@@ -8729,43 +10177,61 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryCreateInput = {
     name: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CountryUncheckedCreateInput = {
     id?: number
     name: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CountryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryCreateManyInput = {
     id?: number
     name: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CountryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CountryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryCreateInput = {
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
     Product?: ProductCreateNestedManyWithoutCategoryInput
   }
 
@@ -8773,12 +10239,16 @@ export namespace Prisma {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
     Product?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Product?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
@@ -8786,6 +10256,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Product?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
@@ -8793,22 +10265,30 @@ export namespace Prisma {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CategoryUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BrandCreateInput = {
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
     Product?: ProductCreateNestedManyWithoutBrandInput
   }
 
@@ -8816,12 +10296,16 @@ export namespace Prisma {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
     Product?: ProductUncheckedCreateNestedManyWithoutBrandInput
   }
 
   export type BrandUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Product?: ProductUpdateManyWithoutBrandNestedInput
   }
 
@@ -8829,6 +10313,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     Product?: ProductUncheckedUpdateManyWithoutBrandNestedInput
   }
 
@@ -8836,17 +10322,23 @@ export namespace Prisma {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BrandUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BrandUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateInput = {
@@ -8858,6 +10350,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
     brand: BrandCreateNestedOneWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductInput
   }
@@ -8874,6 +10368,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductUpdateInput = {
@@ -8885,6 +10381,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     brand?: BrandUpdateOneRequiredWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductNestedInput
   }
@@ -8901,6 +10399,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateManyInput = {
@@ -8915,6 +10415,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -8926,6 +10428,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -8940,6 +10444,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8981,6 +10487,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type CommentBlogListRelationFilter = {
     every?: CommentBlogWhereInput
     some?: CommentBlogWhereInput
@@ -9003,6 +10520,8 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -9016,6 +10535,8 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9025,6 +10546,8 @@ export namespace Prisma {
     phone?: SortOrder
     avatar?: SortOrder
     password?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -9081,12 +10604,86 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type AdminCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AdminAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type AdminMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AdminMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type AdminSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
   export type BlogCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     image?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BlogAvgOrderByAggregateInput = {
@@ -9099,6 +10696,8 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BlogMinOrderByAggregateInput = {
@@ -9107,6 +10706,8 @@ export namespace Prisma {
     description?: SortOrder
     image?: SortOrder
     content?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BlogSumOrderByAggregateInput = {
@@ -9131,6 +10732,8 @@ export namespace Prisma {
     name_user?: SortOrder
     avatar_user?: SortOrder
     level?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CommentBlogAvgOrderByAggregateInput = {
@@ -9148,6 +10751,8 @@ export namespace Prisma {
     name_user?: SortOrder
     avatar_user?: SortOrder
     level?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CommentBlogMinOrderByAggregateInput = {
@@ -9158,6 +10763,8 @@ export namespace Prisma {
     name_user?: SortOrder
     avatar_user?: SortOrder
     level?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CommentBlogSumOrderByAggregateInput = {
@@ -9170,6 +10777,8 @@ export namespace Prisma {
   export type CountryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CountryAvgOrderByAggregateInput = {
@@ -9179,11 +10788,15 @@ export namespace Prisma {
   export type CountryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CountryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CountrySumOrderByAggregateInput = {
@@ -9204,6 +10817,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CategoryAvgOrderByAggregateInput = {
@@ -9215,12 +10830,16 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type CategorySumOrderByAggregateInput = {
@@ -9232,6 +10851,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BrandAvgOrderByAggregateInput = {
@@ -9243,12 +10864,16 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BrandMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type BrandSumOrderByAggregateInput = {
@@ -9278,6 +10903,8 @@ export namespace Prisma {
     sale?: SortOrder
     detail?: SortOrder
     company_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -9302,6 +10929,8 @@ export namespace Prisma {
     sale?: SortOrder
     detail?: SortOrder
     company_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -9316,6 +10945,8 @@ export namespace Prisma {
     sale?: SortOrder
     detail?: SortOrder
     company_profile?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -9348,6 +10979,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type CommentBlogUpdateManyWithoutUserNestedInput = {
@@ -9384,6 +11019,10 @@ export namespace Prisma {
     update?: CommentBlogUpdateWithWhereUniqueWithoutUserInput | CommentBlogUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CommentBlogUpdateManyWithWhereWithoutUserInput | CommentBlogUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CommentBlogScalarWhereInput | CommentBlogScalarWhereInput[]
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type CommentBlogCreateNestedManyWithoutBlogInput = {
@@ -9607,6 +11246,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -9679,11 +11329,44 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
   export type CommentBlogCreateWithoutUserInput = {
     comment: string
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
     blog: BlogCreateNestedOneWithoutCommentsInput
   }
 
@@ -9694,6 +11377,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogCreateOrConnectWithoutUserInput = {
@@ -9733,6 +11418,8 @@ export namespace Prisma {
     name_user?: StringFilter<"CommentBlog"> | string
     avatar_user?: StringFilter<"CommentBlog"> | string
     level?: IntFilter<"CommentBlog"> | number
+    created_at?: DateTimeFilter<"CommentBlog"> | Date | string
+    updated_at?: DateTimeFilter<"CommentBlog"> | Date | string
   }
 
   export type CommentBlogCreateWithoutBlogInput = {
@@ -9740,6 +11427,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
     user: UserCreateNestedOneWithoutCommentsInput
   }
 
@@ -9750,6 +11439,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogCreateOrConnectWithoutBlogInput = {
@@ -9784,6 +11475,8 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     password?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -9793,6 +11486,8 @@ export namespace Prisma {
     phone?: string | null
     avatar?: string | null
     password?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -9805,6 +11500,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BlogUncheckedCreateWithoutCommentsInput = {
@@ -9813,6 +11510,8 @@ export namespace Prisma {
     description: string
     image: string
     content: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BlogCreateOrConnectWithoutCommentsInput = {
@@ -9837,6 +11536,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -9846,6 +11547,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BlogUpsertWithoutCommentsInput = {
@@ -9864,6 +11567,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BlogUncheckedUpdateWithoutCommentsInput = {
@@ -9872,6 +11577,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateWithoutCategoryInput = {
@@ -9883,6 +11590,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
     brand: BrandCreateNestedOneWithoutProductInput
   }
 
@@ -9897,6 +11606,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -9940,6 +11651,8 @@ export namespace Prisma {
     sale?: IntFilter<"Product"> | number
     detail?: StringNullableFilter<"Product"> | string | null
     company_profile?: StringFilter<"Product"> | string
+    created_at?: DateTimeFilter<"Product"> | Date | string
+    updated_at?: DateTimeFilter<"Product"> | Date | string
   }
 
   export type ProductCreateWithoutBrandInput = {
@@ -9951,6 +11664,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
     category: CategoryCreateNestedOneWithoutProductInput
   }
 
@@ -9965,6 +11680,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductCreateOrConnectWithoutBrandInput = {
@@ -9996,12 +11713,16 @@ export namespace Prisma {
   export type BrandCreateWithoutProductInput = {
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BrandUncheckedCreateWithoutProductInput = {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type BrandCreateOrConnectWithoutProductInput = {
@@ -10012,12 +11733,16 @@ export namespace Prisma {
   export type CategoryCreateWithoutProductInput = {
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CategoryUncheckedCreateWithoutProductInput = {
     id?: number
     name: string
     status: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CategoryCreateOrConnectWithoutProductInput = {
@@ -10039,12 +11764,16 @@ export namespace Prisma {
   export type BrandUpdateWithoutProductInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BrandUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryUpsertWithoutProductInput = {
@@ -10061,12 +11790,16 @@ export namespace Prisma {
   export type CategoryUpdateWithoutProductInput = {
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoryUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     status?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogCreateManyUserInput = {
@@ -10076,6 +11809,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogUpdateWithoutUserInput = {
@@ -10083,6 +11818,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     blog?: BlogUpdateOneRequiredWithoutCommentsNestedInput
   }
 
@@ -10093,6 +11830,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogUncheckedUpdateManyWithoutUserInput = {
@@ -10102,6 +11841,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogCreateManyBlogInput = {
@@ -10111,6 +11852,8 @@ export namespace Prisma {
     name_user: string
     avatar_user: string
     level: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type CommentBlogUpdateWithoutBlogInput = {
@@ -10118,6 +11861,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutCommentsNestedInput
   }
 
@@ -10128,6 +11873,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogUncheckedUpdateManyWithoutBlogInput = {
@@ -10137,6 +11884,8 @@ export namespace Prisma {
     name_user?: StringFieldUpdateOperationsInput | string
     avatar_user?: StringFieldUpdateOperationsInput | string
     level?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -10150,6 +11899,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductUpdateWithoutCategoryInput = {
@@ -10161,6 +11912,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     brand?: BrandUpdateOneRequiredWithoutProductNestedInput
   }
 
@@ -10175,6 +11928,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -10188,6 +11943,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductCreateManyBrandInput = {
@@ -10201,6 +11958,8 @@ export namespace Prisma {
     sale: number
     detail?: string | null
     company_profile: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type ProductUpdateWithoutBrandInput = {
@@ -10212,6 +11971,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutProductNestedInput
   }
 
@@ -10226,6 +11987,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductUncheckedUpdateManyWithoutBrandInput = {
@@ -10239,6 +12002,8 @@ export namespace Prisma {
     sale?: IntFieldUpdateOperationsInput | number
     detail?: NullableStringFieldUpdateOperationsInput | string | null
     company_profile?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
@@ -10266,6 +12031,10 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdminDefaultArgs instead
+     */
+    export type AdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BlogDefaultArgs instead
      */

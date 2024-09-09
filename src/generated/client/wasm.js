@@ -125,7 +125,20 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   avatar: 'avatar',
-  password: 'password'
+  password: 'password',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  password: 'password',
+  role: 'role',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.BlogScalarFieldEnum = {
@@ -133,7 +146,9 @@ exports.Prisma.BlogScalarFieldEnum = {
   title: 'title',
   description: 'description',
   image: 'image',
-  content: 'content'
+  content: 'content',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CommentBlogScalarFieldEnum = {
@@ -143,24 +158,32 @@ exports.Prisma.CommentBlogScalarFieldEnum = {
   id_blog: 'id_blog',
   name_user: 'name_user',
   avatar_user: 'avatar_user',
-  level: 'level'
+  level: 'level',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CountryScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  status: 'status'
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  status: 'status'
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -174,7 +197,9 @@ exports.Prisma.ProductScalarFieldEnum = {
   status: 'status',
   sale: 'sale',
   detail: 'detail',
-  company_profile: 'company_profile'
+  company_profile: 'company_profile',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -186,10 +211,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Role = exports.$Enums.Role = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Admin: 'Admin',
   Blog: 'Blog',
   CommentBlog: 'CommentBlog',
   Country: 'Country',

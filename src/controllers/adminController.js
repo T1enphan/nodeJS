@@ -1,6 +1,7 @@
 const adminModel = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendMail = require("../SendMail/sendMail");
 
 function createJWT(adminId, adminname) {
   // Sử dụng bí mật JWT từ biến môi trường nếu có
@@ -46,7 +47,14 @@ const registerAdminAcc = async (req, res) => {
       password: hashedPassword,
       role, // Đảm bảo role là một giá trị hợp lệ
     });
-    res.status(201).json({ message: "Admin created successfully", admin });
+    await sendMail(
+      email,
+      "Welcome!",
+      "Welcome to our service!",
+      "./templateMail.hbs",
+      { name } // Truyền các biến thay thế cho template
+    );
+    res.status(200).json({ message: "Admin created successfully", admin });
   } catch (error) {
     res.status(500).json({
       error: "Failed to create admin account",

@@ -230,6 +230,9 @@ const productCart = async (req, res) => {
   }
 };
 
+// tạo đơn han
+async function createOrder(email, productIds) {}
+
 module.exports = {
   createProduct,
   deleteProduct,

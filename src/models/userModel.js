@@ -57,7 +57,32 @@ const checkLoginUser = async (data) => {
     return existingUser;
   }
 };
+async function activateAccount(token) {
+  console.log("Received token:", token);
+  // Tìm người dùng dựa trên token
+  const user = await prisma.user.findUnique({
+    where: {
+      activationToken: token,
+    },
+  });
+  if (!user) {
+    throw new Error("Invalid activation token");
+  }
+  console.log("User found with ID:", user.id);
+  console.log("Updating user ID:", user.id);
+  // Cập nhật trạng thái kích hoạt và xóa token
+  await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      isActivated: true, // Cập nhật trạng thái kích hoạt
+      activationToken: null, // Xóa token
+    },
+  });
 
+  return "Account activated successfully";
+}
 module.exports = {
   createUser,
   getUsers,
@@ -66,4 +91,5 @@ module.exports = {
   updateUser,
   checkEmail,
   checkLoginUser,
+  activateAccount,
 };

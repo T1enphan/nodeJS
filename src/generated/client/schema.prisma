@@ -8,14 +8,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int           @id @default(autoincrement())
-  name     String
-  email    String        @unique
-  phone    String?
-  avatar   String?
-  password String?
-  comments CommentBlog[]
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  phone      String
+  password   String
+  role       Role
+  created_at DateTime @default(now()) // Thêm trường created_at
+  updated_at DateTime @updatedAt // Thêm trường updated_at
 }
 
 model Blog {
@@ -25,53 +32,116 @@ model Blog {
   image       String
   content     String
   comments    CommentBlog[]
+  created_at  DateTime      @default(now()) // Thêm trường created_at
+  updated_at  DateTime      @updatedAt // Thêm trường updated_at
 }
 
 model CommentBlog {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   comment     String
   id_user     Int
   id_blog     Int
   name_user   String
   avatar_user String
   level       Int
+  created_at  DateTime @default(now()) // Thêm trường created_at
+  updated_at  DateTime @updatedAt // Thêm trường updated_at
 
   user User @relation(fields: [id_user], references: [id])
   blog Blog @relation(fields: [id_blog], references: [id])
 }
 
 model Country {
-  id   Int    @id @default(autoincrement())
-  name String
+  id         Int      @id @default(autoincrement())
+  name       String
+  created_at DateTime @default(now()) // Thêm trường created_at
+  updated_at DateTime @updatedAt // Thêm trường updated_at
 }
 
 model Category {
-  id      Int       @id @default(autoincrement())
-  name    String
-  status  Int
-  Product Product[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  status     Int
+  Product    Product[]
+  created_at DateTime  @default(now()) // Thêm trường created_at
+  updated_at DateTime  @updatedAt // Thêm trường updated_at
 }
 
 model Brand {
-  id      Int       @id @default(autoincrement())
-  name    String
-  status  Int
-  Product Product[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  status     Int
+  Product    Product[]
+  created_at DateTime  @default(now()) // Thêm trường created_at
+  updated_at DateTime  @updatedAt // Thêm trường updated_at
+}
+
+model User {
+  id              Int           @id @default(autoincrement())
+  name            String
+  email           String        @unique
+  phone           String?
+  avatar          String?
+  password        String?
+  address         String?
+  isActivated     Boolean       @default(false) // Trạng thái kích hoạt tài khoản
+  activationToken String?       @unique // Token kích hoạt tài khoản
+  comments        CommentBlog[]
+  created_at      DateTime      @default(now()) // Thêm trường created_at
+  updated_at      DateTime      @updatedAt // Thêm trường updated_at
+
+  // Quan hệ với Product
+  products Product[] @relation("UserProducts")
+
+  // Quan hệ với Order
+  orders Order[] @relation("UserOrders") // Thêm trường quan hệ với Order
 }
 
 model Product {
-  id              Int     @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   id_category     Int
   id_brand        Int
-  id_user         Int
+  id_user         Int // Trường này dùng để lưu id của User
   name            String?
-  image           String
+  image           String?
   price           Int
   status          Int
   sale            Int
   detail          String?
-  company_profile String
+  company_profile String?
+  created_at      DateTime @default(now()) // thêm trường created_at
+  updated_at      DateTime @updatedAt // thêm trường updated_at
 
+  // Quan hệ với Brand và Category
   brand    Brand    @relation(fields: [id_brand], references: [id])
   category Category @relation(fields: [id_category], references: [id])
+
+  // Quan hệ với User (chủ sở hữu sản phẩm)
+  user User @relation(fields: [id_user], references: [id], name: "UserProducts")
+
+  // Quan hệ nhiều-nhiều với Order thông qua OrderProduct
+  orderItems OrderProduct[]
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  email      String
+  total      Float
+  created_at DateTime @default(now())
+  id_user    Int // Thêm trường id_user
+
+  // Quan hệ với User
+  user User @relation(fields: [id_user], references: [id], name: "UserOrders")
+
+  products OrderProduct[] // Quan hệ nhiều-nhiều với Product thông qua OrderProduct
+}
+
+model OrderProduct {
+  orderId   Int
+  productId Int
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@id([orderId, productId]) // composite key cho bảng trung gian
 }

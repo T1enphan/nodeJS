@@ -41,7 +41,7 @@ const sendMailRegister = async (
 
     // Thiết lập thông tin email
     const info = await transporter.sendMail({
-      from: '"Sender Name" <your-email@gmail.com>',
+      from: '"Tien Phan" <your-email@gmail.com>',
       to,
       subject,
       text,
@@ -53,5 +53,21 @@ const sendMailRegister = async (
     console.error("Error sending email:", error);
   }
 };
+
+// const sendEmailBill = async (to, subject, text, templatePath, replacements) => {
+//   try {
+//     const html = compileTemplate(templatePath, replacements);
+//     const info = await transporter.sendMail({
+//       from: '"Tien Phan" <your-email@gmail.com>',
+//       to,
+//       subject,
+//       text,
+//       html,
+//     });
+//     console.log("Email sent: %s", info.messageId);
+//   } catch (error) {
+//     console.log("Error sending email:");
+//   }
+// };
 
 module.exports = sendMailRegister;

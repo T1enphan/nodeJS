@@ -9,6 +9,7 @@ const productController = require("../controllers/productController");
 const brandController = require("../controllers/brandController");
 const categoryController = require("../controllers/categoryController");
 const adminController = require("../controllers/adminController");
+const orderController = require("../controllers/orderController");
 // Định nghĩa các tuyến đường API ở đây
 
 function requireAuth(req, res, next) {
@@ -26,6 +27,33 @@ function requireAuth(req, res, next) {
     return res.status(401).json({ error: "Unauthorized2" });
   }
 }
+
+function requireAuthUser(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  // Kiểm tra xem authHeader có tồn tại không
+  if (!authHeader) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const token = authHeader.split(" ")[1]; // Lấy token từ header
+  console.log(token);
+
+  // Kiểm tra xem token có tồn tại không
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "neit");
+    req.user = decoded; // Gán thông tin người dùng vào req
+    next(); // Tiếp tục đến middleware hoặc route handler tiếp theo
+  } catch (error) {
+    console.error("Error during token verification:", error);
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+}
+
 // ADMIN API
 router.post("/admin/register", adminController.registerAdminAcc);
 router.post("/admin/login", adminController.loginAdmin);
@@ -33,6 +61,8 @@ router.post("/admin/login", adminController.loginAdmin);
 // USER LOGIN
 router.post("/login", userController.loginUser);
 router.post("/register", userController.createUser);
+router.get("/activate/:token", userController.activateAccount);
+
 //USER API
 router.get("/get-data", userController.getUsers);
 router.delete("/delete/:id", userController.deleteUser);
@@ -60,6 +90,7 @@ router.delete("/product/delete/:id", productController.deleteProduct);
 router.put("/product/update/:id", productController.updateProduct);
 router.post("/product/cart", productController.productCart);
 router.get("/product/search", productController.searchProductsController);
+router.post("/product/sendbill", requireAuthUser, orderController.sendBill);
 // BRAND API
 router.post("/brand/create", brandController.creatBrand);
 router.get("/brand/get-data", brandController.getDataBrand);

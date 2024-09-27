@@ -119,17 +119,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  phone: 'phone',
-  avatar: 'avatar',
-  password: 'password',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.AdminScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -186,6 +175,20 @@ exports.Prisma.BrandScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  avatar: 'avatar',
+  password: 'password',
+  address: 'address',
+  isActivated: 'isActivated',
+  activationToken: 'activationToken',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   id_category: 'id_category',
@@ -200,6 +203,20 @@ exports.Prisma.ProductScalarFieldEnum = {
   company_profile: 'company_profile',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  total: 'total',
+  created_at: 'created_at',
+  id_user: 'id_user'
+};
+
+exports.Prisma.OrderProductScalarFieldEnum = {
+  orderId: 'orderId',
+  productId: 'productId',
+  quantity: 'quantity'
 };
 
 exports.Prisma.SortOrder = {
@@ -218,14 +235,16 @@ exports.Role = exports.$Enums.Role = {
 };
 
 exports.Prisma.ModelName = {
-  User: 'User',
   Admin: 'Admin',
   Blog: 'Blog',
   CommentBlog: 'CommentBlog',
   Country: 'Country',
   Category: 'Category',
   Brand: 'Brand',
-  Product: 'Product'
+  User: 'User',
+  Product: 'Product',
+  Order: 'Order',
+  OrderProduct: 'OrderProduct'
 };
 
 /**

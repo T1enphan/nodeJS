@@ -16,38 +16,38 @@ async function main() {
     ],
   });
 
-  // await prisma.user.createMany({
-  //   data: [
-  //     {
-  //       name: "admin1",
-  //       email: "admin1@gmail.com",
-  //       phone: "0905012345",
-  //       password: "123123",
-  //       avatar: "chicken.jpg",
-  //     },
-  //     {
-  //       name: "admin2",
-  //       email: "admin2@gmail.com",
-  //       phone: "0905012345",
-  //       password: "123123",
-  //       avatar: "chicken.jpg",
-  //     },
-  //     {
-  //       name: "admin3",
-  //       email: "admin3@gmail.com",
-  //       phone: "0905012345",
-  //       password: "123123",
-  //       avatar: "chicken.jpg",
-  //     },
-  //     {
-  //       name: "admin4",
-  //       email: "admin4@gmail.com",
-  //       phone: "0905012345",
-  //       password: "123123",
-  //       avatar: "chicken.jpg",
-  //     },
-  //   ],
-  // });
+  await prisma.user.createMany({
+    data: [
+      {
+        name: "admin1",
+        email: "admin1@gmail.com",
+        phone: "0905012345",
+        password: "123123",
+        avatar: "chicken.jpg",
+      },
+      {
+        name: "admin2",
+        email: "admin2@gmail.com",
+        phone: "0905012345",
+        password: "123123",
+        avatar: "chicken.jpg",
+      },
+      {
+        name: "admin3",
+        email: "admin3@gmail.com",
+        phone: "0905012345",
+        password: "123123",
+        avatar: "chicken.jpg",
+      },
+      {
+        name: "admin4",
+        email: "admin4@gmail.com",
+        phone: "0905012345",
+        password: "123123",
+        avatar: "chicken.jpg",
+      },
+    ],
+  });
 
   await prisma.category.createMany({
     data: [

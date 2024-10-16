@@ -9,13 +9,14 @@ const updateProduct = async (id, data) => {
   return prisma.product.update({ where: { id }, data });
 };
 
+const deleteProduct = async (id) => {
+  return prisma.product.delete({ where: { id } });
+};
+
 const getDataProduct = () => {
   return prisma.product.findMany();
 };
 
-const deleteProduct = async (id) => {
-  return prisma.product.delete({ where: { id } });
-};
 async function searchProducts(query) {
   try {
     const lowerCaseQuery = query.toLowerCase();

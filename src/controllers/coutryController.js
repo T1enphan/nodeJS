@@ -21,9 +21,6 @@ const updateCountry = async (req, res) => {
   const id = parseInt(req.params.id);
   const { name } = req.body;
   const country = await countryModel.updateCountry(id, { name });
-  console.log("====================================");
-  console.log(country);
-  console.log("====================================");
   res.status(200).json(country);
 };
 

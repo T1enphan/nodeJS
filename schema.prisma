@@ -22,11 +22,24 @@ model Admin {
   email      String   @unique
   phone      String
   password   String
+  Todo       Todo[]
   role       Role
   created_at DateTime @default(now()) // Thêm trường created_at
   updated_at DateTime @updatedAt      // Thêm trường updated_at
 }
 
+model Todo { 
+  id         Int @id @default(autoincrement())
+  task       String 
+  status     Int @default(0) //0 là chưa nhận , 1 là đã nhận (đang làm) , 3 khẩn cấp
+  id_admin   Int
+  deadline   DateTime
+  created_at DateTime @default(now()) // Thêm trường created_at
+  updated_at DateTime @updatedAt      // Thêm trường updated_at
+
+  admin      Admin @relation(fields: [id_admin], references: [id])
+
+}
 model Blog {
   id          Int           @id @default(autoincrement())
   title       String

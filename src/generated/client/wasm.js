@@ -130,6 +130,16 @@ exports.Prisma.AdminScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.TodoScalarFieldEnum = {
+  id: 'id',
+  task: 'task',
+  status: 'status',
+  id_admin: 'id_admin',
+  deadline: 'deadline',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.BlogScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -236,6 +246,7 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   Admin: 'Admin',
+  Todo: 'Todo',
   Blog: 'Blog',
   CommentBlog: 'CommentBlog',
   Country: 'Country',

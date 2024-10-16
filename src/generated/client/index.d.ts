@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Admin = $Result.DefaultSelection<Prisma.$AdminPayload>
 /**
+ * Model Todo
+ * 
+ */
+export type Todo = $Result.DefaultSelection<Prisma.$TodoPayload>
+/**
  * Model Blog
  * 
  */
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get admin(): Prisma.AdminDelegate<ExtArgs>;
+
+  /**
+   * `prisma.todo`: Exposes CRUD operations for the **Todo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Todos
+    * const todos = await prisma.todo.findMany()
+    * ```
+    */
+  get todo(): Prisma.TodoDelegate<ExtArgs>;
 
   /**
    * `prisma.blog`: Exposes CRUD operations for the **Blog** model.
@@ -781,6 +796,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Admin: 'Admin',
+    Todo: 'Todo',
     Blog: 'Blog',
     CommentBlog: 'CommentBlog',
     Country: 'Country',
@@ -805,7 +821,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "admin" | "blog" | "commentBlog" | "country" | "category" | "brand" | "user" | "product" | "order" | "orderProduct"
+      modelProps: "admin" | "todo" | "blog" | "commentBlog" | "country" | "category" | "brand" | "user" | "product" | "order" | "orderProduct"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -872,6 +888,72 @@ export namespace Prisma {
           count: {
             args: Prisma.AdminCountArgs<ExtArgs>
             result: $Utils.Optional<AdminCountAggregateOutputType> | number
+          }
+        }
+      }
+      Todo: {
+        payload: Prisma.$TodoPayload<ExtArgs>
+        fields: Prisma.TodoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          findMany: {
+            args: Prisma.TodoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>[]
+          }
+          create: {
+            args: Prisma.TodoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          createMany: {
+            args: Prisma.TodoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TodoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          update: {
+            args: Prisma.TodoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TodoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodo>
+          }
+          groupBy: {
+            args: Prisma.TodoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoCountAggregateOutputType> | number
           }
         }
       }
@@ -1626,6 +1708,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AdminCountOutputType
+   */
+
+  export type AdminCountOutputType = {
+    Todo: number
+  }
+
+  export type AdminCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Todo?: boolean | AdminCountOutputTypeCountTodoArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdminCountOutputType
+     */
+    select?: AdminCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AdminCountOutputType without action
+   */
+  export type AdminCountOutputTypeCountTodoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoWhereInput
+  }
+
+
+  /**
    * Count Type BlogCountOutputType
    */
 
@@ -2055,6 +2168,8 @@ export namespace Prisma {
     role?: boolean
     created_at?: boolean
     updated_at?: boolean
+    Todo?: boolean | Admin$TodoArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["admin"]>
 
 
@@ -2069,10 +2184,16 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
+  export type AdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Todo?: boolean | Admin$TodoArgs<ExtArgs>
+    _count?: boolean | AdminCountOutputTypeDefaultArgs<ExtArgs>
+  }
 
   export type $AdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Admin"
-    objects: {}
+    objects: {
+      Todo: Prisma.$TodoPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
@@ -2422,6 +2543,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    Todo<T extends Admin$TodoArgs<ExtArgs> = {}>(args?: Subset<T, Admin$TodoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2472,6 +2594,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -2486,6 +2612,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where: AdminWhereUniqueInput
@@ -2499,6 +2629,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * Filter, which Admin to fetch.
      */
@@ -2544,6 +2678,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admin to fetch.
      */
     where?: AdminWhereInput
@@ -2588,6 +2726,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter, which Admins to fetch.
      */
     where?: AdminWhereInput
@@ -2627,6 +2769,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The data needed to create a Admin.
      */
     data: XOR<AdminCreateInput, AdminUncheckedCreateInput>
@@ -2651,6 +2797,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
     /**
      * The data needed to update a Admin.
      */
@@ -2684,6 +2834,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * The filter to search for the Admin to update in case it exists.
      */
     where: AdminWhereUniqueInput
@@ -2706,6 +2860,10 @@ export namespace Prisma {
      */
     select?: AdminSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+    /**
      * Filter which Admin to delete.
      */
     where: AdminWhereUniqueInput
@@ -2722,6 +2880,26 @@ export namespace Prisma {
   }
 
   /**
+   * Admin.Todo
+   */
+  export type Admin$TodoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    where?: TodoWhereInput
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    cursor?: TodoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
+  }
+
+  /**
    * Admin without action
    */
   export type AdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2729,6 +2907,953 @@ export namespace Prisma {
      * Select specific fields to fetch from the Admin
      */
     select?: AdminSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdminInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Todo
+   */
+
+  export type AggregateTodo = {
+    _count: TodoCountAggregateOutputType | null
+    _avg: TodoAvgAggregateOutputType | null
+    _sum: TodoSumAggregateOutputType | null
+    _min: TodoMinAggregateOutputType | null
+    _max: TodoMaxAggregateOutputType | null
+  }
+
+  export type TodoAvgAggregateOutputType = {
+    id: number | null
+    status: number | null
+    id_admin: number | null
+  }
+
+  export type TodoSumAggregateOutputType = {
+    id: number | null
+    status: number | null
+    id_admin: number | null
+  }
+
+  export type TodoMinAggregateOutputType = {
+    id: number | null
+    task: string | null
+    status: number | null
+    id_admin: number | null
+    deadline: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type TodoMaxAggregateOutputType = {
+    id: number | null
+    task: string | null
+    status: number | null
+    id_admin: number | null
+    deadline: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type TodoCountAggregateOutputType = {
+    id: number
+    task: number
+    status: number
+    id_admin: number
+    deadline: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type TodoAvgAggregateInputType = {
+    id?: true
+    status?: true
+    id_admin?: true
+  }
+
+  export type TodoSumAggregateInputType = {
+    id?: true
+    status?: true
+    id_admin?: true
+  }
+
+  export type TodoMinAggregateInputType = {
+    id?: true
+    task?: true
+    status?: true
+    id_admin?: true
+    deadline?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type TodoMaxAggregateInputType = {
+    id?: true
+    task?: true
+    status?: true
+    id_admin?: true
+    deadline?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type TodoCountAggregateInputType = {
+    id?: true
+    task?: true
+    status?: true
+    id_admin?: true
+    deadline?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type TodoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Todo to aggregate.
+     */
+    where?: TodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Todos to fetch.
+     */
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Todos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Todos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Todos
+    **/
+    _count?: true | TodoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TodoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TodoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoMaxAggregateInputType
+  }
+
+  export type GetTodoAggregateType<T extends TodoAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodo[P]>
+      : GetScalarType<T[P], AggregateTodo[P]>
+  }
+
+
+
+
+  export type TodoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoWhereInput
+    orderBy?: TodoOrderByWithAggregationInput | TodoOrderByWithAggregationInput[]
+    by: TodoScalarFieldEnum[] | TodoScalarFieldEnum
+    having?: TodoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoCountAggregateInputType | true
+    _avg?: TodoAvgAggregateInputType
+    _sum?: TodoSumAggregateInputType
+    _min?: TodoMinAggregateInputType
+    _max?: TodoMaxAggregateInputType
+  }
+
+  export type TodoGroupByOutputType = {
+    id: number
+    task: string
+    status: number
+    id_admin: number
+    deadline: Date
+    created_at: Date
+    updated_at: Date
+    _count: TodoCountAggregateOutputType | null
+    _avg: TodoAvgAggregateOutputType | null
+    _sum: TodoSumAggregateOutputType | null
+    _min: TodoMinAggregateOutputType | null
+    _max: TodoMaxAggregateOutputType | null
+  }
+
+  type GetTodoGroupByPayload<T extends TodoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task?: boolean
+    status?: boolean
+    id_admin?: boolean
+    deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todo"]>
+
+
+  export type TodoSelectScalar = {
+    id?: boolean
+    task?: boolean
+    status?: boolean
+    id_admin?: boolean
+    deadline?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type TodoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | AdminDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Todo"
+    objects: {
+      admin: Prisma.$AdminPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task: string
+      status: number
+      id_admin: number
+      deadline: Date
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["todo"]>
+    composites: {}
+  }
+
+  type TodoGetPayload<S extends boolean | null | undefined | TodoDefaultArgs> = $Result.GetResult<Prisma.$TodoPayload, S>
+
+  type TodoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TodoFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TodoCountAggregateInputType | true
+    }
+
+  export interface TodoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Todo'], meta: { name: 'Todo' } }
+    /**
+     * Find zero or one Todo that matches the filter.
+     * @param {TodoFindUniqueArgs} args - Arguments to find a Todo
+     * @example
+     * // Get one Todo
+     * const todo = await prisma.todo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoFindUniqueArgs>(args: SelectSubset<T, TodoFindUniqueArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Todo that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TodoFindUniqueOrThrowArgs} args - Arguments to find a Todo
+     * @example
+     * // Get one Todo
+     * const todo = await prisma.todo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Todo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoFindFirstArgs} args - Arguments to find a Todo
+     * @example
+     * // Get one Todo
+     * const todo = await prisma.todo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoFindFirstArgs>(args?: SelectSubset<T, TodoFindFirstArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Todo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoFindFirstOrThrowArgs} args - Arguments to find a Todo
+     * @example
+     * // Get one Todo
+     * const todo = await prisma.todo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Todos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Todos
+     * const todos = await prisma.todo.findMany()
+     * 
+     * // Get first 10 Todos
+     * const todos = await prisma.todo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoWithIdOnly = await prisma.todo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoFindManyArgs>(args?: SelectSubset<T, TodoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Todo.
+     * @param {TodoCreateArgs} args - Arguments to create a Todo.
+     * @example
+     * // Create one Todo
+     * const Todo = await prisma.todo.create({
+     *   data: {
+     *     // ... data to create a Todo
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoCreateArgs>(args: SelectSubset<T, TodoCreateArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Todos.
+     * @param {TodoCreateManyArgs} args - Arguments to create many Todos.
+     * @example
+     * // Create many Todos
+     * const todo = await prisma.todo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoCreateManyArgs>(args?: SelectSubset<T, TodoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Todo.
+     * @param {TodoDeleteArgs} args - Arguments to delete one Todo.
+     * @example
+     * // Delete one Todo
+     * const Todo = await prisma.todo.delete({
+     *   where: {
+     *     // ... filter to delete one Todo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoDeleteArgs>(args: SelectSubset<T, TodoDeleteArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Todo.
+     * @param {TodoUpdateArgs} args - Arguments to update one Todo.
+     * @example
+     * // Update one Todo
+     * const todo = await prisma.todo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoUpdateArgs>(args: SelectSubset<T, TodoUpdateArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Todos.
+     * @param {TodoDeleteManyArgs} args - Arguments to filter Todos to delete.
+     * @example
+     * // Delete a few Todos
+     * const { count } = await prisma.todo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoDeleteManyArgs>(args?: SelectSubset<T, TodoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Todos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Todos
+     * const todo = await prisma.todo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoUpdateManyArgs>(args: SelectSubset<T, TodoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Todo.
+     * @param {TodoUpsertArgs} args - Arguments to update or create a Todo.
+     * @example
+     * // Update or create a Todo
+     * const todo = await prisma.todo.upsert({
+     *   create: {
+     *     // ... data to create a Todo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Todo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoUpsertArgs>(args: SelectSubset<T, TodoUpsertArgs<ExtArgs>>): Prisma__TodoClient<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Todos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCountArgs} args - Arguments to filter Todos to count.
+     * @example
+     * // Count the number of Todos
+     * const count = await prisma.todo.count({
+     *   where: {
+     *     // ... the filter for the Todos we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoCountArgs>(
+      args?: Subset<T, TodoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Todo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoAggregateArgs>(args: Subset<T, TodoAggregateArgs>): Prisma.PrismaPromise<GetTodoAggregateType<T>>
+
+    /**
+     * Group by Todo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoGroupByArgs['orderBy'] }
+        : { orderBy?: TodoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Todo model
+   */
+  readonly fields: TodoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Todo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends AdminDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AdminDefaultArgs<ExtArgs>>): Prisma__AdminClient<$Result.GetResult<Prisma.$AdminPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Todo model
+   */ 
+  interface TodoFieldRefs {
+    readonly id: FieldRef<"Todo", 'Int'>
+    readonly task: FieldRef<"Todo", 'String'>
+    readonly status: FieldRef<"Todo", 'Int'>
+    readonly id_admin: FieldRef<"Todo", 'Int'>
+    readonly deadline: FieldRef<"Todo", 'DateTime'>
+    readonly created_at: FieldRef<"Todo", 'DateTime'>
+    readonly updated_at: FieldRef<"Todo", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Todo findUnique
+   */
+  export type TodoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Todo to fetch.
+     */
+    where: TodoWhereUniqueInput
+  }
+
+  /**
+   * Todo findUniqueOrThrow
+   */
+  export type TodoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Todo to fetch.
+     */
+    where: TodoWhereUniqueInput
+  }
+
+  /**
+   * Todo findFirst
+   */
+  export type TodoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Todo to fetch.
+     */
+    where?: TodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Todos to fetch.
+     */
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Todos.
+     */
+    cursor?: TodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Todos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Todos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Todos.
+     */
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
+  }
+
+  /**
+   * Todo findFirstOrThrow
+   */
+  export type TodoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Todo to fetch.
+     */
+    where?: TodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Todos to fetch.
+     */
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Todos.
+     */
+    cursor?: TodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Todos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Todos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Todos.
+     */
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
+  }
+
+  /**
+   * Todo findMany
+   */
+  export type TodoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter, which Todos to fetch.
+     */
+    where?: TodoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Todos to fetch.
+     */
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Todos.
+     */
+    cursor?: TodoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Todos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Todos.
+     */
+    skip?: number
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
+  }
+
+  /**
+   * Todo create
+   */
+  export type TodoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Todo.
+     */
+    data: XOR<TodoCreateInput, TodoUncheckedCreateInput>
+  }
+
+  /**
+   * Todo createMany
+   */
+  export type TodoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Todos.
+     */
+    data: TodoCreateManyInput | TodoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Todo update
+   */
+  export type TodoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Todo.
+     */
+    data: XOR<TodoUpdateInput, TodoUncheckedUpdateInput>
+    /**
+     * Choose, which Todo to update.
+     */
+    where: TodoWhereUniqueInput
+  }
+
+  /**
+   * Todo updateMany
+   */
+  export type TodoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Todos.
+     */
+    data: XOR<TodoUpdateManyMutationInput, TodoUncheckedUpdateManyInput>
+    /**
+     * Filter which Todos to update
+     */
+    where?: TodoWhereInput
+  }
+
+  /**
+   * Todo upsert
+   */
+  export type TodoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Todo to update in case it exists.
+     */
+    where: TodoWhereUniqueInput
+    /**
+     * In case the Todo found by the `where` argument doesn't exist, create a new Todo with this data.
+     */
+    create: XOR<TodoCreateInput, TodoUncheckedCreateInput>
+    /**
+     * In case the Todo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoUpdateInput, TodoUncheckedUpdateInput>
+  }
+
+  /**
+   * Todo delete
+   */
+  export type TodoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    /**
+     * Filter which Todo to delete.
+     */
+    where: TodoWhereUniqueInput
+  }
+
+  /**
+   * Todo deleteMany
+   */
+  export type TodoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Todos to delete
+     */
+    where?: TodoWhereInput
+  }
+
+  /**
+   * Todo without action
+   */
+  export type TodoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
   }
 
 
@@ -11381,6 +12506,19 @@ export namespace Prisma {
   export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
 
 
+  export const TodoScalarFieldEnum: {
+    id: 'id',
+    task: 'task',
+    status: 'status',
+    id_admin: 'id_admin',
+    deadline: 'deadline',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type TodoScalarFieldEnum = (typeof TodoScalarFieldEnum)[keyof typeof TodoScalarFieldEnum]
+
+
   export const BlogScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -11575,6 +12713,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     created_at?: DateTimeFilter<"Admin"> | Date | string
     updated_at?: DateTimeFilter<"Admin"> | Date | string
+    Todo?: TodoListRelationFilter
   }
 
   export type AdminOrderByWithRelationInput = {
@@ -11586,6 +12725,7 @@ export namespace Prisma {
     role?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    Todo?: TodoOrderByRelationAggregateInput
   }
 
   export type AdminWhereUniqueInput = Prisma.AtLeast<{
@@ -11600,6 +12740,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Admin"> | $Enums.Role
     created_at?: DateTimeFilter<"Admin"> | Date | string
     updated_at?: DateTimeFilter<"Admin"> | Date | string
+    Todo?: TodoListRelationFilter
   }, "id" | "email">
 
   export type AdminOrderByWithAggregationInput = {
@@ -11630,6 +12771,73 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"Admin"> | $Enums.Role
     created_at?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Admin"> | Date | string
+  }
+
+  export type TodoWhereInput = {
+    AND?: TodoWhereInput | TodoWhereInput[]
+    OR?: TodoWhereInput[]
+    NOT?: TodoWhereInput | TodoWhereInput[]
+    id?: IntFilter<"Todo"> | number
+    task?: StringFilter<"Todo"> | string
+    status?: IntFilter<"Todo"> | number
+    id_admin?: IntFilter<"Todo"> | number
+    deadline?: DateTimeFilter<"Todo"> | Date | string
+    created_at?: DateTimeFilter<"Todo"> | Date | string
+    updated_at?: DateTimeFilter<"Todo"> | Date | string
+    admin?: XOR<AdminRelationFilter, AdminWhereInput>
+  }
+
+  export type TodoOrderByWithRelationInput = {
+    id?: SortOrder
+    task?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+    deadline?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    admin?: AdminOrderByWithRelationInput
+  }
+
+  export type TodoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TodoWhereInput | TodoWhereInput[]
+    OR?: TodoWhereInput[]
+    NOT?: TodoWhereInput | TodoWhereInput[]
+    task?: StringFilter<"Todo"> | string
+    status?: IntFilter<"Todo"> | number
+    id_admin?: IntFilter<"Todo"> | number
+    deadline?: DateTimeFilter<"Todo"> | Date | string
+    created_at?: DateTimeFilter<"Todo"> | Date | string
+    updated_at?: DateTimeFilter<"Todo"> | Date | string
+    admin?: XOR<AdminRelationFilter, AdminWhereInput>
+  }, "id">
+
+  export type TodoOrderByWithAggregationInput = {
+    id?: SortOrder
+    task?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+    deadline?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: TodoCountOrderByAggregateInput
+    _avg?: TodoAvgOrderByAggregateInput
+    _max?: TodoMaxOrderByAggregateInput
+    _min?: TodoMinOrderByAggregateInput
+    _sum?: TodoSumOrderByAggregateInput
+  }
+
+  export type TodoScalarWhereWithAggregatesInput = {
+    AND?: TodoScalarWhereWithAggregatesInput | TodoScalarWhereWithAggregatesInput[]
+    OR?: TodoScalarWhereWithAggregatesInput[]
+    NOT?: TodoScalarWhereWithAggregatesInput | TodoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Todo"> | number
+    task?: StringWithAggregatesFilter<"Todo"> | string
+    status?: IntWithAggregatesFilter<"Todo"> | number
+    id_admin?: IntWithAggregatesFilter<"Todo"> | number
+    deadline?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
   }
 
   export type BlogWhereInput = {
@@ -12260,6 +13468,7 @@ export namespace Prisma {
     role: $Enums.Role
     created_at?: Date | string
     updated_at?: Date | string
+    Todo?: TodoCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUncheckedCreateInput = {
@@ -12271,6 +13480,7 @@ export namespace Prisma {
     role: $Enums.Role
     created_at?: Date | string
     updated_at?: Date | string
+    Todo?: TodoUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type AdminUpdateInput = {
@@ -12281,6 +13491,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    Todo?: TodoUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminUncheckedUpdateInput = {
@@ -12292,6 +13503,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    Todo?: TodoUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AdminCreateManyInput = {
@@ -12322,6 +13534,72 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoCreateInput = {
+    task: string
+    status: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+    admin: AdminCreateNestedOneWithoutTodoInput
+  }
+
+  export type TodoUncheckedCreateInput = {
+    id?: number
+    task: string
+    status: number
+    id_admin: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type TodoUpdateInput = {
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: AdminUpdateOneRequiredWithoutTodoNestedInput
+  }
+
+  export type TodoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    id_admin?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoCreateManyInput = {
+    id?: number
+    task: string
+    status: number
+    id_admin: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type TodoUpdateManyMutationInput = {
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    id_admin?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12992,6 +14270,16 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type TodoListRelationFilter = {
+    every?: TodoWhereInput
+    some?: TodoWhereInput
+    none?: TodoWhereInput
+  }
+
+  export type TodoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AdminCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -13088,6 +14376,53 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type AdminRelationFilter = {
+    is?: AdminWhereInput
+    isNot?: AdminWhereInput
+  }
+
+  export type TodoCountOrderByAggregateInput = {
+    id?: SortOrder
+    task?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+    deadline?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type TodoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+  }
+
+  export type TodoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+    deadline?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type TodoMinOrderByAggregateInput = {
+    id?: SortOrder
+    task?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
+    deadline?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type TodoSumOrderByAggregateInput = {
+    id?: SortOrder
+    status?: SortOrder
+    id_admin?: SortOrder
   }
 
   export type CommentBlogListRelationFilter = {
@@ -13610,6 +14945,20 @@ export namespace Prisma {
     quantity?: SortOrder
   }
 
+  export type TodoCreateNestedManyWithoutAdminInput = {
+    create?: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput> | TodoCreateWithoutAdminInput[] | TodoUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutAdminInput | TodoCreateOrConnectWithoutAdminInput[]
+    createMany?: TodoCreateManyAdminInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  }
+
+  export type TodoUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput> | TodoCreateWithoutAdminInput[] | TodoUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutAdminInput | TodoCreateOrConnectWithoutAdminInput[]
+    createMany?: TodoCreateManyAdminInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -13622,12 +14971,54 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type TodoUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput> | TodoCreateWithoutAdminInput[] | TodoUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutAdminInput | TodoCreateOrConnectWithoutAdminInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutAdminInput | TodoUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: TodoCreateManyAdminInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutAdminInput | TodoUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutAdminInput | TodoUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type TodoUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput> | TodoCreateWithoutAdminInput[] | TodoUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutAdminInput | TodoCreateOrConnectWithoutAdminInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutAdminInput | TodoUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: TodoCreateManyAdminInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutAdminInput | TodoUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutAdminInput | TodoUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
+  }
+
+  export type AdminCreateNestedOneWithoutTodoInput = {
+    create?: XOR<AdminCreateWithoutTodoInput, AdminUncheckedCreateWithoutTodoInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutTodoInput
+    connect?: AdminWhereUniqueInput
+  }
+
+  export type AdminUpdateOneRequiredWithoutTodoNestedInput = {
+    create?: XOR<AdminCreateWithoutTodoInput, AdminUncheckedCreateWithoutTodoInput>
+    connectOrCreate?: AdminCreateOrConnectWithoutTodoInput
+    upsert?: AdminUpsertWithoutTodoInput
+    connect?: AdminWhereUniqueInput
+    update?: XOR<XOR<AdminUpdateToOneWithWhereWithoutTodoInput, AdminUpdateWithoutTodoInput>, AdminUncheckedUpdateWithoutTodoInput>
   }
 
   export type CommentBlogCreateNestedManyWithoutBlogInput = {
@@ -14274,6 +15665,120 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type TodoCreateWithoutAdminInput = {
+    task: string
+    status: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type TodoUncheckedCreateWithoutAdminInput = {
+    id?: number
+    task: string
+    status: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type TodoCreateOrConnectWithoutAdminInput = {
+    where: TodoWhereUniqueInput
+    create: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput>
+  }
+
+  export type TodoCreateManyAdminInputEnvelope = {
+    data: TodoCreateManyAdminInput | TodoCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TodoUpsertWithWhereUniqueWithoutAdminInput = {
+    where: TodoWhereUniqueInput
+    update: XOR<TodoUpdateWithoutAdminInput, TodoUncheckedUpdateWithoutAdminInput>
+    create: XOR<TodoCreateWithoutAdminInput, TodoUncheckedCreateWithoutAdminInput>
+  }
+
+  export type TodoUpdateWithWhereUniqueWithoutAdminInput = {
+    where: TodoWhereUniqueInput
+    data: XOR<TodoUpdateWithoutAdminInput, TodoUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type TodoUpdateManyWithWhereWithoutAdminInput = {
+    where: TodoScalarWhereInput
+    data: XOR<TodoUpdateManyMutationInput, TodoUncheckedUpdateManyWithoutAdminInput>
+  }
+
+  export type TodoScalarWhereInput = {
+    AND?: TodoScalarWhereInput | TodoScalarWhereInput[]
+    OR?: TodoScalarWhereInput[]
+    NOT?: TodoScalarWhereInput | TodoScalarWhereInput[]
+    id?: IntFilter<"Todo"> | number
+    task?: StringFilter<"Todo"> | string
+    status?: IntFilter<"Todo"> | number
+    id_admin?: IntFilter<"Todo"> | number
+    deadline?: DateTimeFilter<"Todo"> | Date | string
+    created_at?: DateTimeFilter<"Todo"> | Date | string
+    updated_at?: DateTimeFilter<"Todo"> | Date | string
+  }
+
+  export type AdminCreateWithoutTodoInput = {
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AdminUncheckedCreateWithoutTodoInput = {
+    id?: number
+    name: string
+    email: string
+    phone: string
+    password: string
+    role: $Enums.Role
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type AdminCreateOrConnectWithoutTodoInput = {
+    where: AdminWhereUniqueInput
+    create: XOR<AdminCreateWithoutTodoInput, AdminUncheckedCreateWithoutTodoInput>
+  }
+
+  export type AdminUpsertWithoutTodoInput = {
+    update: XOR<AdminUpdateWithoutTodoInput, AdminUncheckedUpdateWithoutTodoInput>
+    create: XOR<AdminCreateWithoutTodoInput, AdminUncheckedCreateWithoutTodoInput>
+    where?: AdminWhereInput
+  }
+
+  export type AdminUpdateToOneWithWhereWithoutTodoInput = {
+    where?: AdminWhereInput
+    data: XOR<AdminUpdateWithoutTodoInput, AdminUncheckedUpdateWithoutTodoInput>
+  }
+
+  export type AdminUpdateWithoutTodoInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AdminUncheckedUpdateWithoutTodoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentBlogCreateWithoutBlogInput = {
@@ -15212,6 +16717,41 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TodoCreateManyAdminInput = {
+    id?: number
+    task: string
+    status: number
+    deadline: Date | string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type TodoUpdateWithoutAdminInput = {
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoUncheckedUpdateWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoUncheckedUpdateManyWithoutAdminInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task?: StringFieldUpdateOperationsInput | string
+    status?: IntFieldUpdateOperationsInput | number
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommentBlogCreateManyBlogInput = {
     id?: number
     comment: string
@@ -15556,6 +17096,10 @@ export namespace Prisma {
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use AdminCountOutputTypeDefaultArgs instead
+     */
+    export type AdminCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use BlogCountOutputTypeDefaultArgs instead
      */
     export type BlogCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BlogCountOutputTypeDefaultArgs<ExtArgs>
@@ -15583,6 +17127,10 @@ export namespace Prisma {
      * @deprecated Use AdminDefaultArgs instead
      */
     export type AdminArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdminDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TodoDefaultArgs instead
+     */
+    export type TodoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TodoDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BlogDefaultArgs instead
      */

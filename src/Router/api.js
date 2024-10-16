@@ -10,6 +10,7 @@ const brandController = require("../controllers/brandController");
 const categoryController = require("../controllers/categoryController");
 const adminController = require("../controllers/adminController");
 const orderController = require("../controllers/orderController");
+const todoController = require("../controllers/todoController");
 // Định nghĩa các tuyến đường API ở đây
 
 function requireAuth(req, res, next) {
@@ -54,8 +55,23 @@ function requireAuthUser(req, res, next) {
   }
 }
 
+const checkRole = (allowedRoles) => {
+  return (req, res, next) => {
+    const user = req.user; // Giả sử bạn có cơ chế xác thực người dùng
+    if (allowedRoles.includes(user.role)) {
+      next(); // Người dùng có quyền truy cập
+    } else {
+      return res.status(403).json({ message: "Không có quyền truy cập" });
+    }
+  };
+};
+
 // ADMIN API
-router.post("/admin/register", adminController.registerAdminAcc);
+router.post(
+  "/admin/register",
+  // checkRole(["SUPER_ADMIN"]),
+  adminController.registerAdminAcc
+);
 router.post("/admin/login", adminController.loginAdmin);
 
 // USER LOGIN
@@ -101,6 +117,13 @@ router.post("/category/create", categoryController.createCategory);
 router.get("/category/get-data", categoryController.getDataCategory);
 router.delete("/category/delete/:id", categoryController.deleteCategory);
 router.put("/category/update/:id", categoryController.updateCategory);
+// TODOLIST
+router.post("/todo-list/create", todoController.createTodo);
+router.get("/todo-list/get-task", todoController.getTaskList);
+router.get("/todo-list/get-data", todoController.getModeratorsAndAdmins);
+router.delete("/todo-list/delete/:id", todoController.deleteTask);
+router.put("/todo-list/update/:id", todoController.updateTask);
+router.post("/todo-list/change-status/:id", todoController.changeStatus);
 ///Example
 router.get("/example", (req, res) => {
   res.send(

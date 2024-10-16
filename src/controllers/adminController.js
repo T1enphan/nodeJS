@@ -22,7 +22,7 @@ const loginAdmin = async (req, res) => {
   const token = createJWT(checkLogin.id, checkLogin.adminname);
   res
     .status(200)
-    .json({ message: "Đăng nhập thành công", token: token, user: checkLogin });
+    .json({ message: "Đăng nhập thành công", token: token, admin: checkLogin });
 };
 
 const registerAdminAcc = async (req, res) => {

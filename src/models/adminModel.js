@@ -43,8 +43,32 @@ const checkLoginAdmin = async (data) => {
   return existingAdmin; // Đăng nhập thành công
 };
 
+const getModeratorsAndAdmins = async () => {
+  try {
+    // Lấy danh sách các tài khoản có role là MODERATOR hoặc ADMIN
+    const admins = await prisma.admin.findMany({
+      where: {
+        role: {
+          in: ["MODERATOR", "ADMIN"],
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+
+    return admins;
+  } catch (error) {
+    throw new Error("Failed to retrieve admins");
+  }
+};
+
 module.exports = {
   createAdminAccount,
   checkEmail,
   checkLoginAdmin,
+  getModeratorsAndAdmins,
 };

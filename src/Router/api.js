@@ -73,7 +73,7 @@ router.post(
   adminController.registerAdminAcc
 );
 router.post("/admin/login", adminController.loginAdmin);
-
+router.get("/admin/:id/token", adminController.generateAdminToken)
 // USER LOGIN
 router.post("/login", userController.loginUser);
 router.post("/register", userController.createUser);

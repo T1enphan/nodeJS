@@ -13540,7 +13540,7 @@ export namespace Prisma {
 
   export type TodoCreateInput = {
     task: string
-    status: number
+    status?: number
     deadline: Date | string
     created_at?: Date | string
     updated_at?: Date | string
@@ -13550,7 +13550,7 @@ export namespace Prisma {
   export type TodoUncheckedCreateInput = {
     id?: number
     task: string
-    status: number
+    status?: number
     id_admin: number
     deadline: Date | string
     created_at?: Date | string
@@ -13579,7 +13579,7 @@ export namespace Prisma {
   export type TodoCreateManyInput = {
     id?: number
     task: string
-    status: number
+    status?: number
     id_admin: number
     deadline: Date | string
     created_at?: Date | string
@@ -15669,7 +15669,7 @@ export namespace Prisma {
 
   export type TodoCreateWithoutAdminInput = {
     task: string
-    status: number
+    status?: number
     deadline: Date | string
     created_at?: Date | string
     updated_at?: Date | string
@@ -15678,7 +15678,7 @@ export namespace Prisma {
   export type TodoUncheckedCreateWithoutAdminInput = {
     id?: number
     task: string
-    status: number
+    status?: number
     deadline: Date | string
     created_at?: Date | string
     updated_at?: Date | string
@@ -16720,7 +16720,7 @@ export namespace Prisma {
   export type TodoCreateManyAdminInput = {
     id?: number
     task: string
-    status: number
+    status?: number
     deadline: Date | string
     created_at?: Date | string
     updated_at?: Date | string

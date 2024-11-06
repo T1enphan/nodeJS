@@ -2,6 +2,12 @@ const adminModel = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../SendMail/sendMail");
+const chatClient = require("../streamChatConfig");
+const { PrismaClient } = require("../generated/client");
+const prisma = new PrismaClient();
+
+
+
 
 function createJWT(adminId, adminname) {
   // Sử dụng bí mật JWT từ biến môi trường nếu có
@@ -62,8 +68,31 @@ const registerAdminAcc = async (req, res) => {
     });
   }
 };
+
+const generateAdminToken = async (req, res) => {
+  try {
+    // Lấy thông tin admin từ database
+    const adminId = req.params.id; // ID của admin được truyền qua URL hoặc body
+    const admin = await prisma.admin.findUnique({ where: { id: parseInt(adminId) } });
+
+    if (!admin) {
+      return res.status(404).json({ error: "Admin không tồn tại" });
+    }
+
+    // Tạo token cho Stream Chat dựa trên admin ID
+    const token = chatClient.createToken(admin.id.toString());
+
+    res.status(200).json({ token, admin });
+  } catch (error) {
+    console.error("Lỗi khi tạo token cho admin:", error);
+    res.status(500).json({ error: "Lỗi server khi tạo token cho admin" });
+  }
+};
+
 module.exports = {
   registerAdminAcc,
   loginAdmin,
   createJWT,
+  generateAdminToken
+
 };

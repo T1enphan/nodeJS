@@ -81,7 +81,7 @@ const generateAdminToken = async (req, res) => {
 
     // Tạo token cho Stream Chat dựa trên admin ID
     const token = chatClient.createToken(admin.id.toString());
-
+    console.log(token);
     res.status(200).json({ token, admin });
   } catch (error) {
     console.error("Lỗi khi tạo token cho admin:", error);
